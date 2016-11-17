@@ -1,5 +1,8 @@
 package cdp;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public enum EstadoConta { ATIVO, DESATIVADO, ATRASADO, EMDIA }
        /* ;
 	private int ativo;

@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,10 +26,11 @@ public class Itens implements Serializable {
     private Compra compra;
     
     @ManyToOne
-    private Mudas mudas;
+    @JoinColumn(name = "idMudas")
+    private Mudas mudasI;
 
     public double calculaValor(int qnt, double val) {
-            return 0;
+        return qnt * val;
     }
 
     public int getIdItens() {
@@ -58,11 +58,11 @@ public class Itens implements Serializable {
     }
 
     public Mudas getMudas() {
-        return mudas;
+        return mudasI;
     }
 
     public void setMudas(Mudas mudas) {
-        this.mudas = mudas;
+        this.mudasI = mudas;
     }
 
 }

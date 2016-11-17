@@ -3,11 +3,11 @@ package cdp;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -24,10 +24,11 @@ public class Viveiro {
     @Column
     private String descricao;
     @Column
+    @Enumerated(EnumType.STRING)
     private Irrigacao tipoDeIrrigacao;
     
     @OneToMany (mappedBy = "idLote")
-    private List<LoteDeMudas> loteDeMudas;
+    private List<LoteDeMudas> loteDeMudasV;
 
     public int getIdViveiro() {
         return idViveiro;
@@ -67,5 +68,13 @@ public class Viveiro {
 
     public void setTipoDeIrrigacao(Irrigacao tipoDeIrrigacao) {
         this.tipoDeIrrigacao = tipoDeIrrigacao;
+    }
+
+    public List<LoteDeMudas> getLoteDeMudas() {
+        return loteDeMudasV;
+    }
+
+    public void setLoteDeMudas(List<LoteDeMudas> loteDeMudas) {
+        this.loteDeMudasV = loteDeMudas;
     }
 }

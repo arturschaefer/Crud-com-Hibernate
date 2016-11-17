@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -25,10 +27,13 @@ public class Conta implements Serializable {
     @Column
     private String fechadaEm;
     
-    @OneToOne(cascade = CascadeType.MERGE)
-    private Pessoa pessoa;
+    @Enumerated(EnumType.STRING)
+    private EstadoConta situacao;    
     
-    @OneToMany(mappedBy = "idCompra")
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Pessoa pessoa;    
+    
+    @OneToMany(mappedBy = "conta")
     private List<Compra> compra;
 
     public int getIdConta() {
@@ -77,6 +82,14 @@ public class Conta implements Serializable {
 
     public void setCompra(List<Compra> compra) {
         this.compra = compra;
+    }
+
+    public EstadoConta getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(EstadoConta situacao) {
+        this.situacao = situacao;
     }
 
 }

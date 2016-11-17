@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -28,8 +27,11 @@ public class Mudas implements Serializable {
     @Column
     private double precoUnidade;
     
-    @OneToMany (mappedBy = "idLote")
-    private List<LoteDeMudas> loteDeMudas;
+    @OneToMany (mappedBy = "mudas")
+    private List<LoteDeMudas> loteDeMudasM;
+    
+    @OneToMany (mappedBy = "mudasI")
+    private List<Itens> itens;
 
     public int getIdMudas() {
         return idMudas;
@@ -80,10 +82,10 @@ public class Mudas implements Serializable {
     }
 
     public List<LoteDeMudas> getLoteDeMudas() {
-        return loteDeMudas;
+        return loteDeMudasM;
     }
 
     public void setLoteDeMudas(List<LoteDeMudas> loteDeMudas) {
-        this.loteDeMudas = loteDeMudas;
+        this.loteDeMudasM = loteDeMudas;
     }
 }
