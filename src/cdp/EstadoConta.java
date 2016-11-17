@@ -1,7 +1,7 @@
 package cdp;
 
-public enum EstadoConta {
-        ;
+public enum EstadoConta { ATIVO, DESATIVADO, ATRASADO, EMDIA }
+       /* ;
 	private int ativo;
 
 	private int desativado;
@@ -10,4 +10,4 @@ public enum EstadoConta {
 
 	private int tudoCerto;
 
-}
+}*/
