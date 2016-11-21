@@ -25,6 +25,9 @@ public class Endereco implements Serializable {
     @Column
     private String estado;
 
+    public Endereco() {
+    }
+
     public Integer getIdEndereco() {
         return idEndereco;
     }
