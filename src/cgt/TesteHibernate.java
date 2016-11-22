@@ -34,7 +34,6 @@ public class TesteHibernate {
         endereco.setRua("Virginia Paganini Tozzi");
         
         pes.setCpf("12156544727");
-        pes.setEmail("batata");
         pes.setNome("Artur");
         pes.setEndereco(endereco);
         pes.setTelefone01(000000);
