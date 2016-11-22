@@ -5,6 +5,13 @@
  */
 package cih;
 
+import cdp.Conta;
+import cdp.Endereco;
+import cdp.EstadoConta;
+import cdp.Pessoa;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  *
@@ -20,6 +27,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         setVisible(true);
         this.pack();
         this.setLocationRelativeTo(null);
+        this.setFocusableWindowState(true);
     }
 
     /**
@@ -47,12 +55,12 @@ public class CadastroCliente extends javax.swing.JFrame {
         tel1jLabel3 = new javax.swing.JLabel();
         tel2jLabel4 = new javax.swing.JLabel();
         nomejTextField = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        cpfjTextField1 = new javax.swing.JTextField();
+        rgjTextField2 = new javax.swing.JTextField();
+        tel01jTextField3 = new javax.swing.JTextField();
+        tel02jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        obsjTextArea1 = new javax.swing.JTextArea();
         enderecojPanel1 = new javax.swing.JPanel();
         ufjComboBox1 = new javax.swing.JComboBox<>();
         cidadejLabel5 = new javax.swing.JLabel();
@@ -76,7 +84,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         firstJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_first.png"))); // NOI18N
         firstJLabel.setText("Primeiro");
         firstJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        firstJLabel.setMaximumSize(new java.awt.Dimension(100, 36));
         firstJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         previsJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,6 +110,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         addJLabel.setText("Incluir");
         addJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         addJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
+        addJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addJLabelMouseClicked(evt);
+            }
+        });
 
         updateJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         updateJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check-mark (1).png"))); // NOI18N
@@ -179,10 +191,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         tel2jLabel4.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
         tel2jLabel4.setText("Telefone 2");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações Adicionais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
+        obsjTextArea1.setColumns(20);
+        obsjTextArea1.setRows(5);
+        obsjTextArea1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações Adicionais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        jScrollPane1.setViewportView(obsjTextArea1);
 
         javax.swing.GroupLayout pessoajPanelLayout = new javax.swing.GroupLayout(pessoajPanel);
         pessoajPanel.setLayout(pessoajPanelLayout);
@@ -202,10 +214,10 @@ public class CadastroCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nomejTextField)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))))
+                            .addComponent(cpfjTextField1)
+                            .addComponent(rgjTextField2)
+                            .addComponent(tel01jTextField3)
+                            .addComponent(tel02jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         pessoajPanelLayout.setVerticalGroup(
@@ -217,19 +229,19 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpfjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpfjLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rgjTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rgjLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tel01jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tel1jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tel02jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tel2jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,6 +333,37 @@ public class CadastroCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
+        Pessoa pes = new Pessoa();
+        pes.setCpf(cpfjTextField1.getText());
+        pes.setNome(nomejTextField.getText());
+        pes.setRg(rgjTextField2.getText());
+        pes.setTelefone01(Integer.getInteger(tel01jTextField3.getText()));
+        pes.setTelefone02(Integer.getInteger(tel02jTextField4.getText()));
+        pes.setObservacoes(obsjTextArea1.getText());
+        
+        Endereco end = new Endereco();
+        end.setBairro(bairrojTextField7.getText());
+        end.setCep(Integer.getInteger(cepjTextField8.getText()));
+        end.setCidade(cidadejTextField5.getText());
+        end.setRua(ruajTextField6.getText());
+        //end.setUF
+        
+        pes.setEndereco(end);
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+        
+        Conta conta = new Conta();
+        conta.setAbertaEm(localDate.toString());
+        conta.setSituacao(EstadoConta.ATIVO);
+        conta.setFechadaEm(null);
+        
+        conta.setPessoa(pes);
+        
+        pes.setConta(conta);
+    }//GEN-LAST:event_addJLabelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -347,27 +390,10 @@ public class CadastroCliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroCliente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastroCliente().setVisible(true);
         });
     }
 
@@ -380,30 +406,31 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel cidadejLabel5;
     private javax.swing.JTextField cidadejTextField5;
     private javax.swing.JLabel cpfjLabel1;
+    private javax.swing.JTextField cpfjTextField1;
     private javax.swing.JLabel delJLabel;
     private javax.swing.JPanel enderecojPanel1;
     private javax.swing.JLabel firstJLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lastJLabel;
     private javax.swing.JPanel menuJPanel;
     private javax.swing.JLabel nextJLabel;
     private javax.swing.JLabel nomejLabel;
     private javax.swing.JTextField nomejTextField;
+    private javax.swing.JTextArea obsjTextArea1;
     private javax.swing.JPanel pessoajPanel;
     private javax.swing.JLabel previsJLabel;
     private javax.swing.JLabel rgjLabel2;
+    private javax.swing.JTextField rgjTextField2;
     private javax.swing.JLabel ruajLabel7;
     private javax.swing.JTextField ruajTextField6;
     private javax.swing.JLabel searchJLabel;
+    private javax.swing.JTextField tel01jTextField3;
+    private javax.swing.JTextField tel02jTextField4;
     private javax.swing.JLabel tel1jLabel3;
     private javax.swing.JLabel tel2jLabel4;
     private javax.swing.JComboBox<String> ufjComboBox1;
     private javax.swing.JLabel ufjLabel6;
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
+
 }
