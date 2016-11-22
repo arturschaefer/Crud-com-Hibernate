@@ -120,6 +120,9 @@ public class Home extends javax.swing.JFrame {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 clientsJLabelMousePressed(evt);
             }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clientsJLabelMouseClicked(evt);
+            }
         });
 
         salesJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -309,14 +312,14 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1368, Short.MAX_VALUE)
+            .addComponent(logoJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1371, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(exitJButton)
                         .addGap(0, 1309, Short.MAX_VALUE))
-                    .addComponent(painelAtalhos, javax.swing.GroupLayout.DEFAULT_SIZE, 1344, Short.MAX_VALUE))
+                    .addComponent(painelAtalhos, javax.swing.GroupLayout.DEFAULT_SIZE, 1347, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -370,6 +373,10 @@ public class Home extends javax.swing.JFrame {
     private void calcJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcJLabelMouseClicked
         Calculadora.getInstance().setVisible(true);
     }//GEN-LAST:event_calcJLabelMouseClicked
+
+    private void clientsJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientsJLabelMouseClicked
+        new CadastroCliente().setAlwaysOnTop(true);
+    }//GEN-LAST:event_clientsJLabelMouseClicked
 
     /**
      * @param args the command line arguments
