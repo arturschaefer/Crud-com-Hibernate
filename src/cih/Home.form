@@ -149,7 +149,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="logoJPanel" alignment="1" pref="1368" max="32767" attributes="0"/>
+          <Component id="logoJPanel" alignment="1" pref="1371" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -157,7 +157,7 @@
                       <Component id="exitJButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="1309" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="painelAtalhos" alignment="0" pref="1344" max="32767" attributes="0"/>
+                  <Component id="painelAtalhos" alignment="0" pref="1347" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -325,6 +325,7 @@
           </Properties>
           <Events>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="clientsJLabelMousePressed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="clientsJLabelMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="salesJLabel">
