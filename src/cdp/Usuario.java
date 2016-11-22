@@ -1,5 +1,14 @@
 package cdp;
 
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /*
  * Autor:           aschaefer
  * Data:            16/11/2016
@@ -12,13 +21,30 @@ package cdp;
  * Nome Original:       Usuario
  * Pacote de Criação:   cdp
  */
-public class Usuario {
-    private String nome;
+@Entity
+@Table(name = "usuarios")
+public class Usuario implements Serializable{
+
+    @Id
+    @Column(name = "id", nullable = false, unique = true)
+    private int id;
+
+    @Column(name = "userName", nullable = false, unique = true)
+    private String nomeUsuario;
+
+    @Column(name = "password", nullable = false, unique = false)
     private String senha;
 
-    public Usuario(String nome, String senha) {
-        this.nome = nome;
-        this.senha = senha;
+    @Column(name = "lastAccess", unique = true)
+    @Temporal(TemporalType.DATE)
+    private Date ultimoAcesso;
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getSenha() {
@@ -29,12 +55,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getNome() {
-        return nome;
+    public Date getUltimoAcesso() {
+        return ultimoAcesso;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUltimoAcesso(Date ultimoAcesso) {
+        this.ultimoAcesso = ultimoAcesso;
     }
-    
 }
