@@ -19,10 +19,20 @@ import org.hibernate.Session;
  * Pacote de Criação:   cgd
  */
 public class GenericaDAO {
-    
-    public void gerarBanco(){
+
+    public void gerarBanco() {
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.close();
+    }
+
+    public Session retornaSessao() {
+        Session sess = null;
+        try {
+            sess = HibernateUtil.getSessionFactory().getCurrentSession();
+        } catch (org.hibernate.HibernateException he) {
+            sess = HibernateUtil.getSessionFactory().openSession();
+        }
+        return sess;
     }
 
     public void inserir(Object obj) throws SQLException, ClassNotFoundException {
@@ -30,9 +40,7 @@ public class GenericaDAO {
         try {
             sessao = HibernateUtil.getSessionFactory().openSession();
             sessao.beginTransaction();
-
             sessao.save(obj);
-
             sessao.getTransaction().commit();
 
         } catch (HibernateException e) {
@@ -90,7 +98,6 @@ public class GenericaDAO {
             }
         }
     }
-
 
     public List listar(Class classe) {
 
