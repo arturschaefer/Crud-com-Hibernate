@@ -20,15 +20,6 @@ public class Funcionario extends Pessoa {
     @Column
     private String dataDeDemissão;
     
-    public Funcionario(int carteiraDeTrabalho, double salario, String tipoDeVinculo, String dataDeAdmissão, String dataDeDemissão, int cod, String nome, String cpf, String email, int telefone01, int telefone02, Endereco endereco) {
-        super(cod, nome, cpf, email, telefone01, telefone02, endereco);
-        this.carteiraDeTrabalho = carteiraDeTrabalho;
-        this.salario = salario;
-        this.tipoDeVinculo = tipoDeVinculo;
-        this.dataDeAdmissão = dataDeAdmissão;
-        this.dataDeDemissão = dataDeDemissão;
-    }
-    
     public double getSalario() {
         return salario;
     }
