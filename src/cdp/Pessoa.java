@@ -24,11 +24,25 @@ public class Pessoa implements Serializable {
     @Column
     private String cpf;
     @Column
-    private String email;
+    private String rg;
+
+    public Pessoa(String nome, String cpf, String rg, int telefone01, int telefone02, String observacoes, Endereco endereco, Conta conta) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.telefone01 = telefone01;
+        this.telefone02 = telefone02;
+        this.observacoes = observacoes;
+        this.endereco = endereco;
+        this.conta = conta;
+    }
+    
     @Column
     private int telefone01;
     @Column
     private int telefone02;
+    @Column
+    private String observacoes;
     
     @OneToOne(cascade = CascadeType.MERGE)
     private Endereco endereco;
@@ -63,14 +77,6 @@ public class Pessoa implements Serializable {
         this.cpf = cpf;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getTelefone01() {
         return telefone01;
     }
@@ -94,15 +100,30 @@ public class Pessoa implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
-    public Pessoa(int cod, String nome, String cpf, String email, int telefone01, int telefone02, Endereco endereco) {
-        this.cod = cod;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone01 = telefone01;
-        this.telefone02 = telefone02;
-        this.endereco = endereco;
+    
+    public Conta getConta() {
+        return conta;
     }
 
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+    
+    
 }
