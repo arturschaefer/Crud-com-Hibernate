@@ -30,7 +30,7 @@ public class Conta implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoConta situacao;    
     
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;    
     
     @OneToMany(mappedBy = "conta")

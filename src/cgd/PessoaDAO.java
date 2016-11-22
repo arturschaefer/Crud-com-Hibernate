@@ -21,6 +21,7 @@ import cdp.Pessoa;
  * Nome Original:       PessoaDAO
  * Pacote de Criação:   cgd
  */
+
 public class PessoaDAO extends GenericaDAO{
     public PessoaDAO(){
         super();

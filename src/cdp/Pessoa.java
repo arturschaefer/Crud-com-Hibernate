@@ -44,10 +44,10 @@ public class Pessoa implements Serializable {
     @Column
     private String observacoes;
     
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     private Conta conta;
 
     public Pessoa() {

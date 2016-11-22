@@ -8,9 +8,14 @@ package cih;
 import cdp.Conta;
 import cdp.Endereco;
 import cdp.EstadoConta;
+import cdp.EstadosUF;
 import cdp.Pessoa;
+import cgd.PessoaDAO;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -18,16 +23,20 @@ import java.time.format.DateTimeFormatter;
  * @author Artur Schaefer<artur.schaefer2 at gmail.com>
  */
 public class CadastroCliente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Clientes
-     */
+    
+    PessoaDAO pesDao = new PessoaDAO();
+    
     public CadastroCliente() {
         initComponents();
         setVisible(true);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setFocusableWindowState(true);
+        
+        ufjComboBox1.addItem(EstadosUF.ES.toString());
+        ufjComboBox1.addItem(EstadosUF.MG.toString());
+        ufjComboBox1.addItem(EstadosUF.SP.toString());
+        ufjComboBox1.addItem(EstadosUF.RJ.toString());
     }
 
     /**
@@ -250,6 +259,12 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         enderecojPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        ufjComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ufjComboBox1ActionPerformed(evt);
+            }
+        });
+
         cidadejLabel5.setText("Cidade");
 
         ufjLabel6.setText("UF");
@@ -338,16 +353,16 @@ public class CadastroCliente extends javax.swing.JFrame {
         pes.setCpf(cpfjTextField1.getText());
         pes.setNome(nomejTextField.getText());
         pes.setRg(rgjTextField2.getText());
-        pes.setTelefone01(Integer.getInteger(tel01jTextField3.getText()));
-        pes.setTelefone02(Integer.getInteger(tel02jTextField4.getText()));
+        /*pes.setTelefone01(Integer.par(tel01jTextField3.getText()));
+        pes.setTelefone02(Integer.parseInt(tel02jTextField4.getText()));*/
         pes.setObservacoes(obsjTextArea1.getText());
         
         Endereco end = new Endereco();
         end.setBairro(bairrojTextField7.getText());
-        end.setCep(Integer.getInteger(cepjTextField8.getText()));
+        //end.setCep(Integer.parseInt(cepjTextField8.getText()));
         end.setCidade(cidadejTextField5.getText());
         end.setRua(ruajTextField6.getText());
-        //end.setUF
+        end.setEstado(ufjComboBox1.getSelectedItem().toString());
         
         pes.setEndereco(end);
         
@@ -362,7 +377,19 @@ public class CadastroCliente extends javax.swing.JFrame {
         conta.setPessoa(pes);
         
         pes.setConta(conta);
+        
+        try {
+            pesDao.inserir(pes);
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_addJLabelMouseClicked
+
+    private void ufjComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ufjComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ufjComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

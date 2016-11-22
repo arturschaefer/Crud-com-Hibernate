@@ -1,6 +1,10 @@
 package cih;
 
+import cdp.Usuario;
+import cgt.ControleUsuario;
+import cgt.GenericControl;
 import cgt.LerArquivoSenha;
+import java.util.Arrays;
 
 import javax.swing.JLabel;
 
@@ -9,6 +13,7 @@ import javax.swing.JLabel;
  * @author artur
  */
 public class Login extends javax.swing.JFrame {
+
     private String nomeEntrada;
     private String senhaEntrada;
 
@@ -16,7 +21,7 @@ public class Login extends javax.swing.JFrame {
         this.nomeEntrada = nomeEntrada;
         this.senhaEntrada = senhaEntrada;
     }
-   
+
     public Login() {
         this.initComponents();
         this.pack();
@@ -24,7 +29,7 @@ public class Login extends javax.swing.JFrame {
         this.setVisible(true);
         //usuarioTextFieldActionPerformed(null);
     }
-    
+
     private final JLabel errologinLabel = new JLabel(" ");
 
     /**
@@ -38,7 +43,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         usuarioLabel = new javax.swing.JLabel();
-        usuarioTextField = new javax.swing.JTextField();
+        userTextField = new javax.swing.JTextField();
         senhaLabel = new javax.swing.JLabel();
         senhaPasswordField = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
@@ -68,16 +73,16 @@ public class Login extends javax.swing.JFrame {
         usuarioLabel.setText("Usuário");
         usuarioLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        usuarioTextField.setText("Insira o Nome");
-        usuarioTextField.setToolTipText("Artur");
-        usuarioTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+        userTextField.setText("Insira o Nome");
+        userTextField.setToolTipText("Artur");
+        userTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usuarioTextFieldMouseClicked(evt);
+                userTextFieldMouseClicked(evt);
             }
         });
-        usuarioTextField.addActionListener(new java.awt.event.ActionListener() {
+        userTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioTextFieldActionPerformed(evt);
+                userTextFieldActionPerformed(evt);
             }
         });
 
@@ -105,7 +110,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(senhaPasswordField)
-                    .addComponent(usuarioTextField))
+                    .addComponent(userTextField))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -113,7 +118,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(usuarioTextField)
+                    .addComponent(userTextField)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(usuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -230,23 +235,39 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_sairButtonActionPerformed
 
-    private void usuarioTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioTextFieldActionPerformed
-        usuarioTextField.setText("");
-    }//GEN-LAST:event_usuarioTextFieldActionPerformed
+    private void userTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTextFieldActionPerformed
+    }//GEN-LAST:event_userTextFieldActionPerformed
 
     private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
-        Home home = new Home("teste", "teste");
+
+        ControleUsuario control = new ControleUsuario();
+        Usuario user = new Usuario();
+
+        user.setNomeUsuario(userTextField.getText());
+        user.setSenha(Arrays.toString(senhaPasswordField.getPassword()));
+
+        Home home = new Home(user.getNomeUsuario(), user.getSenha());
         home.setVisible(true);
         this.dispose();
+        /*
+        control.setUsuario(user);
+        if (control.envia().equals("ok")){
+            Home home = new Home(user.getNomeUsuario(), user.getSenha());
+            home.setVisible(true);
+            this.dispose();
+        }else  {
+            System.out.println("ERROUUUUU");
+        }
+        */
     }//GEN-LAST:event_entrarButtonActionPerformed
 
     private void savejCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savejCheckBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_savejCheckBoxActionPerformed
 
-    private void usuarioTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioTextFieldMouseClicked
-        usuarioTextField.setText(null);
-    }//GEN-LAST:event_usuarioTextFieldMouseClicked
+    private void userTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTextFieldMouseClicked
+        userTextField.setText(null);
+    }//GEN-LAST:event_userTextFieldMouseClicked
 
     private void senhaPasswordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senhaPasswordFieldMouseClicked
         senhaPasswordField.setText("");
@@ -255,8 +276,8 @@ public class Login extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         LerArquivoSenha.LerSenha(nomeEntrada, senhaEntrada);
         System.err.println(nomeEntrada + " " + senhaEntrada);
-        if(nomeEntrada != null && senhaEntrada!= null){
-            usuarioTextField.setText(nomeEntrada);
+        if (nomeEntrada != null && senhaEntrada != null) {
+            userTextField.setText(nomeEntrada);
             senhaPasswordField.setText(senhaEntrada);
         }
     }//GEN-LAST:event_formWindowOpened
@@ -266,7 +287,7 @@ public class Login extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Create and display the form */
-        /* Set the GTK+ look and feel */
+ /* Set the GTK+ look and feel */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("GTK+".equals(info.getName())) {
@@ -274,11 +295,13 @@ public class Login extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | 
+        } catch (ClassNotFoundException | InstantiationException |
                 IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroEquipamentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroEquipamentos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> { //java.awt.EventQueue.invokeLater(new Runnable() {
+            new GenericControl().gerarBanco();
             new Login().setVisible(true);
         });
     }
@@ -293,8 +316,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JCheckBox savejCheckBox;
     private javax.swing.JLabel senhaLabel;
     private javax.swing.JPasswordField senhaPasswordField;
+    private javax.swing.JTextField userTextField;
     private javax.swing.JLabel usuarioLabel;
-    private javax.swing.JTextField usuarioTextField;
     // End of variables declaration//GEN-END:variables
 
     public String getNomeEntrada() {
@@ -314,7 +337,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     private String toString(char[] password) {
-        String senha = String.valueOf(password);  
+        String senha = String.valueOf(password);
         return senha;
     }
 }
