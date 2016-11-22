@@ -1,25 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cih;
 
 import cgt.LerArquivoSenha;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author artur
  */
 public class Login extends javax.swing.JFrame {
-    /**
-     * Creates new form Login
-     */
     private String nomeEntrada;
     private String senhaEntrada;
 
@@ -277,6 +266,18 @@ public class Login extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Create and display the form */
+        /* Set the GTK+ look and feel */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("GTK+".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | 
+                IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CadastroEquipamentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         java.awt.EventQueue.invokeLater(() -> { //java.awt.EventQueue.invokeLater(new Runnable() {
             new Login().setVisible(true);
         });
