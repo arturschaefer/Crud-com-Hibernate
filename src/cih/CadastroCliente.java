@@ -16,23 +16,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Artur Schaefer<artur.schaefer2 at gmail.com>
  */
 public class CadastroCliente extends javax.swing.JFrame {
-    
+
     PessoaDAO pesDao = new PessoaDAO();
-    
+
     public CadastroCliente() {
         initComponents();
         setVisible(true);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setFocusableWindowState(true);
-        
+
         ufjComboBox1.addItem(EstadosUF.ES.toString());
         ufjComboBox1.addItem(EstadosUF.MG.toString());
         ufjComboBox1.addItem(EstadosUF.SP.toString());
@@ -349,37 +350,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
-        Pessoa pes = new Pessoa();
-        pes.setCpf(cpfjTextField1.getText());
-        pes.setNome(nomejTextField.getText());
-        pes.setRg(rgjTextField2.getText());
-        /*pes.setTelefone01(Integer.par(tel01jTextField3.getText()));
-        pes.setTelefone02(Integer.parseInt(tel02jTextField4.getText()));*/
-        pes.setObservacoes(obsjTextArea1.getText());
-        
-        Endereco end = new Endereco();
-        end.setBairro(bairrojTextField7.getText());
-        //end.setCep(Integer.parseInt(cepjTextField8.getText()));
-        end.setCidade(cidadejTextField5.getText());
-        end.setRua(ruajTextField6.getText());
-        end.setEstado(ufjComboBox1.getSelectedItem().toString());
-        
-        pes.setEndereco(end);
-        
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate localDate = LocalDate.now();
-        
-        Conta conta = new Conta();
-        conta.setAbertaEm(localDate.toString());
-        conta.setSituacao(EstadoConta.ATIVO);
-        conta.setFechadaEm(null);
-        
-        conta.setPessoa(pes);
-        
-        pes.setConta(conta);
-        
-        try {
-            pesDao.inserir(pes);
+        try{
+            pesDao.inserir(lerCampos());
+            limparCampos();
+            JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
         } catch (SQLException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -459,5 +433,55 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel ufjLabel6;
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
+    
+    public Pessoa lerCampos(){
+        try {
+            Pessoa pes = new Pessoa();
+            pes.setCpf(cpfjTextField1.getText());
+            pes.setNome(nomejTextField.getText());
+            pes.setRg(rgjTextField2.getText());
+            pes.setTelefone01(Integer.parseUnsignedInt(tel01jTextField3.getText()));
+            pes.setTelefone02(Integer.parseUnsignedInt(tel02jTextField4.getText()));
+            pes.setObservacoes(obsjTextArea1.getText());
 
+            Endereco end = new Endereco();
+            end.setBairro(bairrojTextField7.getText());
+            end.setCep(Integer.parseUnsignedInt(cepjTextField8.getText()));
+            end.setCidade(cidadejTextField5.getText());
+            end.setRua(ruajTextField6.getText());
+            end.setEstado(ufjComboBox1.getSelectedItem().toString());
+
+            pes.setEndereco(end);
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate localDate = LocalDate.now();
+
+            Conta conta = new Conta();
+            conta.setAbertaEm(localDate.toString());
+            conta.setSituacao(EstadoConta.ATIVO);
+            conta.setFechadaEm(null);
+
+            conta.setPessoa(pes);
+
+            pes.setConta(conta);
+            return pes;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
+        }
+        return null;
+    }
+
+    private void limparCampos() {
+        cpfjTextField1.setText("");
+        nomejTextField.setText("");
+        cepjTextField8.setText("");
+        rgjTextField2.setText("");
+        tel01jTextField3.setText("");
+        tel02jTextField4.setText("");
+        ruajTextField6.setText("");
+        cepjTextField8.setText("");
+        bairrojTextField7.setText("");
+        cidadejTextField5.setText("");
+        obsjTextArea1.setText("");
+    }
 }
