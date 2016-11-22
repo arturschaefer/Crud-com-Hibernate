@@ -21,7 +21,7 @@ import org.hibernate.Session;
 public class GenericaDAO {
 
     public void gerarBanco() {
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        Session sessao = retornaSessao();
         sessao.close();
     }
 
@@ -38,7 +38,8 @@ public class GenericaDAO {
     public void inserir(Object obj) throws SQLException, ClassNotFoundException {
         Session sessao = null;
         try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
+            //sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao = retornaSessao();
             sessao.beginTransaction();
             sessao.save(obj);
             sessao.getTransaction().commit();
@@ -48,6 +49,8 @@ public class GenericaDAO {
                 sessao.getTransaction().rollback();
             }
             throw new HibernateException(e);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
         } finally {
             if (sessao != null) {
                 sessao.close();
@@ -58,7 +61,8 @@ public class GenericaDAO {
     public void alterar(Object obj) throws ClassNotFoundException, SQLException {
         Session sessao = null;
         try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
+            //sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao = retornaSessao();
             sessao.beginTransaction();
 
             sessao.update(obj);
@@ -80,7 +84,8 @@ public class GenericaDAO {
     public void excluir(Object obj) throws SQLException {
         Session sessao = null;
         try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
+            //sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao = retornaSessao();
             sessao.beginTransaction();
 
             sessao.delete(obj);
@@ -104,7 +109,8 @@ public class GenericaDAO {
         List lista = null;
         Session sessao = null;
         try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
+            //sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao = retornaSessao();
             sessao.beginTransaction();
 
             Criteria cons = sessao.createCriteria(classe);
