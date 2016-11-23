@@ -5,6 +5,10 @@ import cdp.Endereco;
 import cdp.Pessoa;
 import cgd.PessoaDAO;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Autor:           aschaefer
@@ -50,10 +54,14 @@ public class ControlePessoa {
 
         pesDAO.excluir(veic);
     }
+    */
+    
+    //SERÁ QUE PODE ISSO, UMA JTABLE NO CONTROLE?
+    //FAZ UM POUCO DE SENTIDO PORQUE É O CONTROLE QUE ALTERA A VISÃO, MAS AO MESMO TEMPO É ESTRANHO
+    //PORQUE O CONTROLE ERA PARA PASSAR SOMENTE DADOS E NÃO VISUAL
+    public void listarPessoas(int tipo, String pesq, JTable tabela) throws SQLException {
 
-    public void pesquisarVeiculos(int tipo, String pesq, JTable tabela) throws SQLException {
-
-        List<Veiculo> lista = null;
+        List<Pessoa> lista = null;
 
         // Apagar linhas da TABELA
         ((DefaultTableModel) tabela.getModel()).setRowCount(0);
@@ -62,21 +70,22 @@ public class ControlePessoa {
             case 0:
                 lista = pesDAO.pesquisarNome(pesq);
                 break; 
+            case 1:
+                lista = pesDAO.procuraPessoa(pesq);
+                break;
         }
 
         if (lista == null) {
 
         } else {
-
-            Veiculo veic;
-            Iterator<Veiculo> it = lista.iterator();
+            Pessoa pes;
+            Iterator<Pessoa> it = lista.iterator();
             while (it.hasNext()) {
-                veic = it.next();
-                ((DefaultTableModel) tabela.getModel()).addRow(veic.toArray());
+                pes = it.next();
+                ((DefaultTableModel) tabela.getModel()).addRow(pes.toArray());
             }
 
         }
 
     }
-*/
 }
