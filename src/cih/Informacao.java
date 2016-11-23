@@ -55,9 +55,9 @@ public class Informacao extends javax.swing.JFrame {
         logoLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel2.setFont(new java.awt.Font("Cantarell", 3, 18)); // NOI18N
-        jLabel2.setText("Versão: 0.2");
+        jLabel2.setText("Versão: 0.4");
 
-        jLabel3.setText("Junho de 2016");
+        jLabel3.setText("Novembro de 2016");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
