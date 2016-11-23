@@ -1,32 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cih;
 
+import cdp.Pessoa;
 import cgt.ControlePessoa;
-import java.awt.Cursor;
-import java.awt.Menu;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
-
-/**
- *
- * @author renato
- */
-public class ListarCliente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ListarProdutos
-     */
-    Menu janMenu = null;
-    ControlePessoa trlCliente = new ControlePessoa();
+public class ListarCliente extends javax.swing.JDialog {
+    
+    ControlePessoa ctrlCliente = new ControlePessoa();
     public ListarCliente() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        try {
+            ctrlCliente.listarPessoas(0, clienteJTextField.getText(), jTableClientes);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,13 +28,13 @@ public class ListarCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelaClientejScrollPane5 = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
-        jLabel22 = new javax.swing.JLabel();
-        txtConsultaCliente = new javax.swing.JTextField();
+        clientejLabel22 = new javax.swing.JLabel();
+        clienteJTextField = new javax.swing.JTextField();
         consultarCliente = new javax.swing.JButton();
-        jButtonConfirma = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        cancelajButton = new javax.swing.JButton();
+        confirmajButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,28 +43,38 @@ public class ListarCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CPF", "Nome", "E-mail", "Telefone"
+                "CPF", "Nome", "Telefone", "Cidade"
             }
         ));
-        jScrollPane5.setViewportView(jTableClientes);
+        tabelaClientejScrollPane5.setViewportView(jTableClientes);
 
-        jLabel22.setText("Cliente:");
+        clientejLabel22.setText("Cliente:");
 
         consultarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifier.png"))); // NOI18N
+        consultarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                consultarClienteMouseClicked(evt);
+            }
+        });
         consultarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultarClienteActionPerformed(evt);
             }
         });
 
-        jButtonConfirma.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/8482_16x16.png"))); // NOI18N
-        jButtonConfirma.addActionListener(new java.awt.event.ActionListener() {
+        cancelajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/8482_16x16.png"))); // NOI18N
+        cancelajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConfirmaActionPerformed(evt);
+                cancelajButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/6036_32x32.png"))); // NOI18N
+        confirmajButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/6036_32x32.png"))); // NOI18N
+        confirmajButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmajButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,55 +83,63 @@ public class ListarCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                    .addComponent(tabelaClientejScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel22)
+                        .addComponent(clientejLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtConsultaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(clienteJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(consultarCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonConfirma, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancelajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(confirmajButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {consultarCliente, jButton4, jButtonConfirma});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelajButton, confirmajButton4, consultarCliente});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabelaClientejScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtConsultaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel22))
-                    .addComponent(jButtonConfirma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(clienteJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(clientejLabel22))
+                    .addComponent(cancelajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(consultarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(confirmajButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {consultarCliente, txtConsultaCliente});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clienteJTextField, consultarCliente});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void consultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarClienteActionPerformed
-        Cursor cursor = Cursor.getPredefinedCursor( Cursor.WAIT_CURSOR );
-        this.setCursor( cursor );
-       
-        
-        System.out.print(evt);
+
     }//GEN-LAST:event_consultarClienteActionPerformed
 
-    private void jButtonConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmaActionPerformed
+    private void cancelajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelajButtonActionPerformed
 
-    }//GEN-LAST:event_jButtonConfirmaActionPerformed
+    }//GEN-LAST:event_cancelajButtonActionPerformed
+
+    private void consultarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultarClienteMouseClicked
+        try {
+            ctrlCliente.listarPessoas(1, clienteJTextField.getText(), jTableClientes);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_consultarClienteMouseClicked
+
+    private void confirmajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmajButton4ActionPerformed
+        Pessoa pes = new Pessoa();
+    }//GEN-LAST:event_confirmajButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,47 +147,20 @@ public class ListarCliente extends javax.swing.JFrame {
     
     
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListarCliente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            ListarCliente listar = new ListarCliente();
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelajButton;
+    private javax.swing.JTextField clienteJTextField;
+    private javax.swing.JLabel clientejLabel22;
+    private javax.swing.JButton confirmajButton4;
     private javax.swing.JButton consultarCliente;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButtonConfirma;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTableClientes;
-    private javax.swing.JTextField txtConsultaCliente;
+    private javax.swing.JScrollPane tabelaClientejScrollPane5;
     // End of variables declaration//GEN-END:variables
 }
