@@ -1,6 +1,7 @@
 package cdp;
 
 import java.io.Serializable;
+import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -123,6 +124,11 @@ public class Pessoa implements Serializable {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    public Object[] toArray() {
+        //return new Object[] {cod, nome, cpf, rg, telefone01, telefone02, observacoes, endereco, conta};   
+        return new Object[] {cpf, nome, telefone01, endereco.getCidade()};
     }
     
     
