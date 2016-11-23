@@ -94,12 +94,12 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Cantarell" size="18" style="3"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 0.2"/>
+        <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 0.4"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Junho de 2016"/>
+        <Property name="text" type="java.lang.String" value="Novembro de 2016"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
