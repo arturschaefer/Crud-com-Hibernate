@@ -8,6 +8,10 @@ package cgd;
 
 import java.util.List;
 import cdp.Pessoa;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /*
  * Autor:           aschaefer
@@ -31,4 +35,30 @@ public class PessoaDAO extends GenericaDAO{
         return listar(Pessoa.class);
     }
     
+    public List<Pessoa> procuraPessoa(String nome){
+        List<Pessoa> pes = null;
+        Session sessao = null;
+        try {
+            //sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao = retornaSessao();
+            sessao.beginTransaction();
+            
+            Criteria criteria = sessao.createCriteria(Pessoa.class)
+   .add(Restrictions.like("nome", "%"+nome+"%"));
+            
+            pes = criteria.list();
+            
+            sessao.getTransaction().commit();
+        } catch (HibernateException e) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+            }
+            throw new HibernateException(e);
+        } finally {
+            if (sessao != null) {
+                sessao.close();
+            }
+        }
+        return pes;
+    }
 }
