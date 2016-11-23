@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -138,6 +137,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         searchJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         searchJLabel.setMaximumSize(new java.awt.Dimension(100, 36));
         searchJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
+        searchJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchJLabelMouseClicked(evt);
+            }
+        });
 
         delJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         delJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel-icon.png"))); // NOI18N
@@ -365,6 +369,12 @@ public class CadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ufjComboBox1ActionPerformed
 
+    private void searchJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchJLabelMouseClicked
+        ListarCliente listarClientes = new ListarCliente();
+        listarClientes.setVisible(true);
+        listarClientes.setAlwaysOnTop(true);
+    }//GEN-LAST:event_searchJLabelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -434,7 +444,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
     
-    public Pessoa lerCampos(){
+    public  Pessoa lerCampos(){
         try {
             Pessoa pes = new Pessoa();
             pes.setCpf(cpfjTextField1.getText());
