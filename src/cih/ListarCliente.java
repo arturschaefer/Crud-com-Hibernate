@@ -3,17 +3,28 @@ package cih;
 import cdp.Pessoa;
 import cgt.ControlePessoa;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class ListarCliente extends javax.swing.JDialog {
-    
+
     ControlePessoa ctrlCliente = new ControlePessoa();
-    public ListarCliente() {
+    Pessoa pessoaSelecionada;
+    List<Pessoa> listaPessoas;
+
+    public ListarCliente(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        ((DefaultTableModel) jTableClientes.getModel()).setRowCount(0);
         try {
-            ctrlCliente.listarPessoas(0, clienteJTextField.getText(), jTableClientes);
+            listaPessoas = ctrlCliente.listarPessoas(0, clienteJTextField.getText());
+            inserirTabela();
         } catch (SQLException ex) {
             Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,29 +142,48 @@ public class ListarCliente extends javax.swing.JDialog {
 
     private void consultarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultarClienteMouseClicked
         try {
-            ctrlCliente.listarPessoas(1, clienteJTextField.getText(), jTableClientes);
+            listaPessoas = ctrlCliente.listarPessoas(1, clienteJTextField.getText());
+            inserirTabela();
         } catch (SQLException ex) {
             Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_consultarClienteMouseClicked
 
     private void confirmajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmajButton4ActionPerformed
-        Pessoa pes = new Pessoa();
+        int linha = jTableClientes.getSelectedRow();
+        if (linha >= 0) {
+            pessoaSelecionada = (Pessoa) jTableClientes.getValueAt(linha, 0);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma linha");
+        }
     }//GEN-LAST:event_confirmajButton4ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
-    
     public static void main(String args[]) {
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            ListarCliente listar = new ListarCliente();
+            ListarCliente dialog = new ListarCliente(new javax.swing.JFrame(), true);
         });
     }
 
+    public void inserirTabela() {
+        limparTabela(jTableClientes);
+        if (listaPessoas != null) {
+            Pessoa pes;
+            Iterator<Pessoa> it = listaPessoas.iterator();
+            while (it.hasNext()) {
+                pes = it.next();
+                ((DefaultTableModel) jTableClientes.getModel()).addRow(pes.toArray());
+            }
+        }
+    }
+    
+    public void limparTabela(JTable tabela){
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        int rc = model.getRowCount();
+        for (int i = 0; i < rc; i++) {
+            model.removeRow(0);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelajButton;
     private javax.swing.JTextField clienteJTextField;
