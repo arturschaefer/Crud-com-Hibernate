@@ -10,10 +10,11 @@ import cdp.Endereco;
 import cdp.EstadoConta;
 import cdp.EstadosUF;
 import cdp.Pessoa;
-import cgd.PessoaDAO;
+import cgt.ControlePessoa;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,8 +25,10 @@ import javax.swing.JOptionPane;
  */
 public class CadastroCliente extends javax.swing.JFrame {
 
-    PessoaDAO pesDao = new PessoaDAO();
-
+    //PessoaDAO pesDao = new PessoaDAO();
+    ControlePessoa crtlPessoa = new ControlePessoa();
+    Pessoa pesAtual = new Pessoa();
+    
     public CadastroCliente() {
         initComponents();
         setVisible(true);
@@ -33,10 +36,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setFocusableWindowState(true);
 
-        ufjComboBox1.addItem(EstadosUF.ES.toString());
-        ufjComboBox1.addItem(EstadosUF.MG.toString());
-        ufjComboBox1.addItem(EstadosUF.SP.toString());
-        ufjComboBox1.addItem(EstadosUF.RJ.toString());
+        preencherCombo();
     }
 
     /**
@@ -94,6 +94,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         firstJLabel.setText("Primeiro");
         firstJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         firstJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
+        firstJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                firstJLabelMouseClicked(evt);
+            }
+        });
 
         previsJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         previsJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_previous.png"))); // NOI18N
@@ -113,6 +118,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         lastJLabel.setText("Último");
         lastJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         lastJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
+        lastJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lastJLabelMouseClicked(evt);
+            }
+        });
 
         addJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         addJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
@@ -354,13 +364,16 @@ public class CadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
+        //Antes eu usava um objeto da dao, errou feio... errou rude
         try{
-            pesDao.inserir(lerCampos());
+            crtlPessoa.inserirPessoa(lerCampos());
             limparCampos();
             JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
         } catch (SQLException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex){
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addJLabelMouseClicked
@@ -373,7 +386,32 @@ public class CadastroCliente extends javax.swing.JFrame {
         ListarCliente listarClientes = new ListarCliente(this, true);
         listarClientes.setVisible(true);
         listarClientes.setAlwaysOnTop(true);
+        
+        pesAtual = listarClientes.getPessoaSelecionada();
+        
+        try {
+            pegaPosicao(0);
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        listarClientes.dispose();
     }//GEN-LAST:event_searchJLabelMouseClicked
+
+    private void firstJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstJLabelMouseClicked
+        try {
+            pegaPosicao(0);//PRIMEIRO DA LISTA
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_firstJLabelMouseClicked
+
+    private void lastJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastJLabelMouseClicked
+        try {
+            pegaPosicao(1);//ULTIMO DA LISTA
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_lastJLabelMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -490,5 +528,44 @@ public class CadastroCliente extends javax.swing.JFrame {
         bairrojTextField7.setText("");
         cidadejTextField5.setText("");
         obsjTextArea1.setText("");
+    }
+    
+    public void pegaPosicao(int pos) throws SQLException{
+        List<Pessoa> pesLista = null;
+        Pessoa pes = new Pessoa();
+        switch(pos){
+            case 0://PRIMEIRO CLIENTE
+                pesLista = crtlPessoa.listarPessoas(1, "");
+                pesAtual = pesLista.get(pos);
+                break;
+            case 1://ULTIMO DA LISTA
+                pesLista = crtlPessoa.listarPessoas(1, "");
+                pesAtual = pesLista.get(pesLista.size()-1);
+                break;
+        }
+        
+        inserirPessoaDoBanco(pes);
+    }
+    
+    public void inserirPessoaDoBanco(Pessoa pes) throws SQLException{
+        cpfjTextField1.setText(pesAtual.getCpf());
+        nomejTextField.setText(pesAtual.getNome());
+        rgjTextField2.setText(pesAtual.getRg());
+        tel01jTextField3.setText(Integer.toString(pesAtual.getTelefone01()));
+        tel02jTextField4.setText(Integer.toString(pesAtual.getTelefone02()));
+        
+        ruajTextField6.setText(pesAtual.getEndereco().getRua());
+        bairrojTextField7.setText(pesAtual.getEndereco().getBairro());
+        cidadejTextField5.setText(pesAtual.getEndereco().getCidade());
+        obsjTextArea1.setText(pesAtual.getObservacoes());
+        ufjComboBox1.setSelectedItem(pesAtual.getEndereco().getEstado());
+        cepjTextField8.setText(Integer.toString(pesAtual.getEndereco().getCep()));        
+    }
+    
+    public void preencherCombo(){
+        ufjComboBox1.addItem(EstadosUF.ES.toString());
+        ufjComboBox1.addItem(EstadosUF.MG.toString());
+        ufjComboBox1.addItem(EstadosUF.SP.toString());
+        ufjComboBox1.addItem(EstadosUF.RJ.toString());
     }
 }

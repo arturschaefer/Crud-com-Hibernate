@@ -124,6 +124,9 @@
               <Dimension value="[100, 70]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="firstJLabelMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="previsJLabel">
           <Properties>
@@ -178,6 +181,9 @@
               <Dimension value="[100, 70]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lastJLabelMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="addJLabel">
           <Properties>

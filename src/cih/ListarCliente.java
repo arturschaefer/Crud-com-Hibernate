@@ -14,13 +14,15 @@ import javax.swing.table.DefaultTableModel;
 public class ListarCliente extends javax.swing.JDialog {
 
     ControlePessoa ctrlCliente = new ControlePessoa();
-    Pessoa pessoaSelecionada;
+    private Pessoa pessoaSelecionada;
     List<Pessoa> listaPessoas;
 
     public ListarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        pessoaSelecionada = new Pessoa();
+
         ((DefaultTableModel) jTableClientes.getModel()).setRowCount(0);
         try {
             listaPessoas = ctrlCliente.listarPessoas(0, clienteJTextField.getText());
@@ -194,4 +196,8 @@ public class ListarCliente extends javax.swing.JDialog {
     private javax.swing.JTable jTableClientes;
     private javax.swing.JScrollPane tabelaClientejScrollPane5;
     // End of variables declaration//GEN-END:variables
+
+    public Pessoa getPessoaSelecionada() {
+        return pessoaSelecionada;
+    }
 }
