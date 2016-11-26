@@ -152,7 +152,8 @@ public class ListarCliente extends javax.swing.JDialog {
     private void confirmajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmajButton4ActionPerformed
         int linha = jTableClientes.getSelectedRow();
         if (linha >= 0) {
-            pessoaSelecionada = (Pessoa) jTableClientes.getValueAt(linha, 0);
+            pessoaSelecionada.setNome((String) jTableClientes.getValueAt(linha, 1)); 
+            pessoaSelecionada.setCpf((String) jTableClientes.getValueAt(linha, 0)); 
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha");
@@ -165,7 +166,7 @@ public class ListarCliente extends javax.swing.JDialog {
         });
     }
 
-    public void inserirTabela() {
+    public final void inserirTabela() {
         limparTabela(jTableClientes);
         if (listaPessoas != null) {
             Pessoa pes;
@@ -177,7 +178,7 @@ public class ListarCliente extends javax.swing.JDialog {
         }
     }
     
-    public void limparTabela(JTable tabela){
+    public final void limparTabela(JTable tabela){
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         int rc = model.getRowCount();
         for (int i = 0; i < rc; i++) {
