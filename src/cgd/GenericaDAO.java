@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /*
  * Autor:           aschaefer
@@ -115,6 +116,35 @@ public class GenericaDAO {
 
             Criteria cons = sessao.createCriteria(classe);
             lista = cons.list();
+
+            sessao.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+            }
+            lista = null;
+            throw new HibernateException(e);
+        } finally {
+            if (sessao != null) {
+                sessao.close();
+            }
+            return lista;
+        }
+    }
+    
+    public List procuraPorNome(Class classe, String nome) {
+
+        List lista = null;
+        Session sessao = null;
+        try {
+            //sessao = HibernateUtil.getSessionFactory().openSession();
+            sessao = retornaSessao();
+            sessao.beginTransaction();
+
+            Criteria criteria = sessao.createCriteria(classe)
+   .add(Restrictions.like("nome", "%"+nome+"%"));
+            lista = criteria.list();
 
             sessao.getTransaction().commit();
 
