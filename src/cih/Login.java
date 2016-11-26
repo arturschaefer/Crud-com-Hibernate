@@ -233,6 +233,7 @@ public class Login extends javax.swing.JFrame {
 
     private void sairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairButtonActionPerformed
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_sairButtonActionPerformed
 
     private void userTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTextFieldActionPerformed
