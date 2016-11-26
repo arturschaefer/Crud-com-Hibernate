@@ -32,7 +32,7 @@ public class ControlePessoa {
         return pes.getCod();
     }
 
-    public int alterarVeiculo(Pessoa pes) throws ClassNotFoundException, SQLException {
+    public int alterarPessoa(Pessoa pes) throws ClassNotFoundException, SQLException {
         pesDAO.alterar(pes);
         return pes.getCod();
     }
@@ -49,6 +49,9 @@ public class ControlePessoa {
                 break;
             case 1:
                 lista = pesDAO.procuraPessoa(pesq);
+                break;
+            case 2:
+                lista = pesDAO.procuraCPF(pesq);
                 break;
         }
 
