@@ -370,14 +370,11 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_ufjComboBox1ActionPerformed
 
     private void searchJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchJLabelMouseClicked
-        ListarCliente listarClientes = new ListarCliente();
+        ListarCliente listarClientes = new ListarCliente(this, true);
         listarClientes.setVisible(true);
         listarClientes.setAlwaysOnTop(true);
     }//GEN-LAST:event_searchJLabelMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
