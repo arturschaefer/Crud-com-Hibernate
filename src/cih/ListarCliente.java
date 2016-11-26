@@ -155,7 +155,7 @@ public class ListarCliente extends javax.swing.JDialog {
         int linha = jTableClientes.getSelectedRow();
         if (linha >= 0) {
             pessoaSelecionada.setNome((String) jTableClientes.getValueAt(linha, 1)); 
-            pessoaSelecionada.setCpf((String) jTableClientes.getValueAt(linha, 0)); 
+            pessoaSelecionada.setCpf((String) jTableClientes.getValueAt(linha, 0));
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha");
