@@ -93,6 +93,7 @@ public class Home extends javax.swing.JFrame {
         toolsjLabel.setText("Equipamentos");
         toolsjLabel.setToolTipText("Gerencia de equipamentos");
         toolsjLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        toolsjLabel.setEnabled(false);
         toolsjLabel.setMaximumSize(new java.awt.Dimension(150, 80));
         toolsjLabel.setMinimumSize(new java.awt.Dimension(130, 80));
         toolsjLabel.setPreferredSize(new java.awt.Dimension(140, 75));
@@ -101,6 +102,7 @@ public class Home extends javax.swing.JFrame {
         employersJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reseller_programm.png"))); // NOI18N
         employersJLabel.setText("Funcionários");
         employersJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        employersJLabel.setEnabled(false);
         employersJLabel.setMaximumSize(new java.awt.Dimension(130, 80));
         employersJLabel.setMinimumSize(new java.awt.Dimension(130, 80));
         employersJLabel.setPreferredSize(new java.awt.Dimension(140, 75));
@@ -135,6 +137,7 @@ public class Home extends javax.swing.JFrame {
         calcJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calculator_black.png"))); // NOI18N
         calcJLabel.setText("Calculadora");
         calcJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        calcJLabel.setEnabled(false);
         calcJLabel.setPreferredSize(new java.awt.Dimension(130, 80));
         calcJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -146,6 +149,7 @@ public class Home extends javax.swing.JFrame {
         calendarJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar.png"))); // NOI18N
         calendarJLabel.setText("Calendário");
         calendarJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        calendarJLabel.setEnabled(false);
         calendarJLabel.setPreferredSize(new java.awt.Dimension(130, 80));
 
         sairJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
