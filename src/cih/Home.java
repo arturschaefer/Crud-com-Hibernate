@@ -72,7 +72,7 @@ public class Home extends javax.swing.JFrame {
         informationJMenu = new javax.swing.JMenu();
         aboutMenu = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mudas Schaefer");
         setLocationByPlatform(true);
         setName("homeFrame"); // NOI18N
@@ -312,14 +312,14 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1371, Short.MAX_VALUE)
+            .addComponent(logoJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1380, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(exitJButton)
                         .addGap(0, 1309, Short.MAX_VALUE))
-                    .addComponent(painelAtalhos, javax.swing.GroupLayout.DEFAULT_SIZE, 1347, Short.MAX_VALUE))
+                    .addComponent(painelAtalhos, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
