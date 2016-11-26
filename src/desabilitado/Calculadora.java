@@ -1,4 +1,4 @@
-package cih;
+package desabilitado;
 
 import javax.swing.JFrame;
 

@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cih;
+import desabilitado.Calculadora;
 import javax.swing.JFrame;
 
 /**
@@ -109,9 +105,14 @@ public class Home extends javax.swing.JFrame {
 
         mudasJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         mudasJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tree.png"))); // NOI18N
-        mudasJLabel.setText("Mudas");
+        mudasJLabel.setText("Lote/Mudas");
         mudasJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         mudasJLabel.setPreferredSize(new java.awt.Dimension(130, 80));
+        mudasJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mudasJLabelMouseClicked(evt);
+            }
+        });
 
         clientsJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         clientsJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/group.png"))); // NOI18N
@@ -382,11 +383,11 @@ public class Home extends javax.swing.JFrame {
         new CadastroCliente().setAlwaysOnTop(true);
     }//GEN-LAST:event_clientsJLabelMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    private void mudasJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mudasJLabelMouseClicked
+        new CadastroMudas().setVisible(true);
+    }//GEN-LAST:event_mudasJLabelMouseClicked
+
     public static void main(String args[]) {
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new Home().setVisible(true);
         });

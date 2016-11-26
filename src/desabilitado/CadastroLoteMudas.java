@@ -3,32 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cih;
-
-import cdp.Viveiro;
-import cgt.ControleViveiro;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import cdp.Irrigacao;
-import cih.CadastroCliente;
+package desabilitado;
 
 /**
  *
- * @author Artur Schaefer<artur.schaefer2 at gmail.com>
+ * @author Artur
  */
-public class CadastroViveiros extends javax.swing.JFrame {
+public class CadastroLoteMudas extends javax.swing.JFrame {
 
-    ControleViveiro crtlViv = new ControleViveiro();
-    public CadastroViveiros() {
+    /**
+     * Creates new form CadastroLoteMudas
+     */
+    public CadastroLoteMudas() {
         initComponents();
-        setVisible(true);
-        this.pack();
-        this.setLocationRelativeTo(null);
-        irrigacaojComboBox1.addItem(Irrigacao.ASPERSOR.toString());
-        irrigacaojComboBox1.addItem(Irrigacao.GOTEJAMENTO.toString());
-        irrigacaojComboBox1.addItem(Irrigacao.OUTRO.toString());
     }
 
     /**
@@ -49,18 +36,17 @@ public class CadastroViveiros extends javax.swing.JFrame {
         updateJLabel = new javax.swing.JLabel();
         searchJLabel = new javax.swing.JLabel();
         delJLabel = new javax.swing.JLabel();
-        pessoajPanel = new javax.swing.JPanel();
-        nomejLabel = new javax.swing.JLabel();
-        descricaojLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        tel1jLabel3 = new javax.swing.JLabel();
-        nomejTextField = new javax.swing.JTextField();
-        descjTextField1 = new javax.swing.JTextField();
-        areajTextField3 = new javax.swing.JTextField();
-        irrigacaojComboBox1 = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        cadastroMudasjButton1 = new javax.swing.JButton();
+        mudajLabel1 = new javax.swing.JLabel();
+        mudajComboBox1 = new javax.swing.JComboBox<>();
+        viveirojLabel2 = new javax.swing.JLabel();
+        viveirojComboBox2 = new javax.swing.JComboBox<>();
+        cadastroViveirojButton2 = new javax.swing.JButton();
+        qntjLabel3 = new javax.swing.JLabel();
+        qntjTextField1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro Clientes");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         menuJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         menuJPanel.setPreferredSize(new java.awt.Dimension(900, 95));
@@ -98,17 +84,11 @@ public class CadastroViveiros extends javax.swing.JFrame {
         addJLabel.setText("Incluir");
         addJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         addJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
-        addJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addJLabelMouseClicked(evt);
-            }
-        });
 
         updateJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         updateJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check-mark (1).png"))); // NOI18N
         updateJLabel.setText("Alterar");
         updateJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        updateJLabel.setEnabled(false);
         updateJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         searchJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -122,7 +102,6 @@ public class CadastroViveiros extends javax.swing.JFrame {
         delJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel-icon.png"))); // NOI18N
         delJLabel.setText("Excluir");
         delJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        delJLabel.setEnabled(false);
         delJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         javax.swing.GroupLayout menuJPanelLayout = new javax.swing.GroupLayout(menuJPanel);
@@ -146,7 +125,7 @@ public class CadastroViveiros extends javax.swing.JFrame {
                 .addComponent(searchJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(delJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         menuJPanelLayout.setVerticalGroup(
             menuJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,145 +143,147 @@ public class CadastroViveiros extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pessoajPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cadastroMudasjButton1.setText("Cadastrar Mudas?");
 
-        nomejLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
-        nomejLabel.setText("Nome");
+        mudajLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        mudajLabel1.setText("Tipo da Muda");
 
-        descricaojLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
-        descricaojLabel1.setText("Descrição");
+        viveirojLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        viveirojLabel2.setText("Viveiro");
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
-        jLabel2.setText("Tipo de Irrigação");
+        cadastroViveirojButton2.setText("Cadastro de Viveiro?");
 
-        tel1jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
-        tel1jLabel3.setText("Área Disponível");
+        qntjLabel3.setText("Quantidade de Mudas");
 
-        javax.swing.GroupLayout pessoajPanelLayout = new javax.swing.GroupLayout(pessoajPanel);
-        pessoajPanel.setLayout(pessoajPanelLayout);
-        pessoajPanelLayout.setHorizontalGroup(
-            pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pessoajPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(descricaojLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(tel1jLabel3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(qntjLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(qntjTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mudajLabel1)
+                            .addComponent(viveirojLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(mudajComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viveirojComboBox2, 0, 184, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cadastroViveirojButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nomejTextField)
-                    .addComponent(descjTextField1)
-                    .addComponent(areajTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                    .addComponent(irrigacaojComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(cadastroMudasjButton1)
+                .addContainerGap())
         );
-        pessoajPanelLayout.setVerticalGroup(
-            pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pessoajPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomejLabel)
-                    .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cadastroMudasjButton1, cadastroViveirojButton2});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {mudajComboBox1, mudajLabel1, qntjLabel3, qntjTextField1, viveirojComboBox2, viveirojLabel2});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mudajLabel1)
+                    .addComponent(mudajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(descjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(descricaojLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(irrigacaojComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(areajTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tel1jLabel3))
-                .addGap(335, 335, 335))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viveirojLabel2)
+                    .addComponent(viveirojComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cadastroMudasjButton1)
+                    .addComponent(cadastroViveirojButton2)
+                    .addComponent(qntjLabel3)
+                    .addComponent(qntjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {mudajComboBox1, mudajLabel1, viveirojComboBox2, viveirojLabel2});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pessoajPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menuJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(menuJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pessoajPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
-        try {
-            crtlViv.inserirViveiro(lerCampos(0));
-            limparCampos();
-            JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_addJLabelMouseClicked
-
-
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new CadastroViveiros().setVisible(true);
-        });
-    }
-    
-    public Viveiro lerCampos(int op) throws SQLException, ClassNotFoundException {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
-            Viveiro viv = new Viveiro();
-            /*LER CAMPOS*/
-            viv.setDescricao(descjTextField1.getText());
-            viv.setAreaDisponivel(Double.parseDouble(areajTextField3.getText()));
-            viv.setNome(nomejTextField.getText());
-            //viv.setTipoDeIrrigacao((Irrigacao) irrigacaojComboBox1.getSelectedItem());
-            viv.setLoteDeMudas(null);
-            return viv;
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CadastroLoteMudas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CadastroLoteMudas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CadastroLoteMudas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CadastroLoteMudas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        return null;
-    }
+        //</editor-fold>
 
-    private void limparCampos() {
-        descjTextField1.setText("");
-        nomejTextField.setText("");
-        areajTextField3.setText("");
-        irrigacaojComboBox1.setSelectedIndex(0);
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CadastroLoteMudas().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addJLabel;
-    private javax.swing.JTextField areajTextField3;
+    private javax.swing.JButton cadastroMudasjButton1;
+    private javax.swing.JButton cadastroViveirojButton2;
     private javax.swing.JLabel delJLabel;
-    private javax.swing.JTextField descjTextField1;
-    private javax.swing.JLabel descricaojLabel1;
     private javax.swing.JLabel firstJLabel;
-    private javax.swing.JComboBox<String> irrigacaojComboBox1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lastJLabel;
     private javax.swing.JPanel menuJPanel;
+    private javax.swing.JComboBox<String> mudajComboBox1;
+    private javax.swing.JLabel mudajLabel1;
     private javax.swing.JLabel nextJLabel;
-    private javax.swing.JLabel nomejLabel;
-    private javax.swing.JTextField nomejTextField;
-    private javax.swing.JPanel pessoajPanel;
     private javax.swing.JLabel previsJLabel;
+    private javax.swing.JLabel qntjLabel3;
+    private javax.swing.JTextField qntjTextField1;
     private javax.swing.JLabel searchJLabel;
-    private javax.swing.JLabel tel1jLabel3;
     private javax.swing.JLabel updateJLabel;
+    private javax.swing.JComboBox<String> viveirojComboBox2;
+    private javax.swing.JLabel viveirojLabel2;
     // End of variables declaration//GEN-END:variables
 }

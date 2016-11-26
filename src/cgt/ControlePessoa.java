@@ -37,7 +37,7 @@ public class ControlePessoa {
         return pes.getCod();
     }
 
-    public void excluirVeiculo(Pessoa pes) throws SQLException {
+    public void excluirPessoa(Pessoa pes) throws SQLException {
         pesDAO.excluir(pes);
     }
 

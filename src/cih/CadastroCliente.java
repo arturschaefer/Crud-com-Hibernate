@@ -28,8 +28,9 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     //PessoaDAO pesDao = new PessoaDAO();
     ControlePessoa crtlPessoa = new ControlePessoa();
+    ControleConta crtlConta = new ControleConta();
     Pessoa pesAtual = new Pessoa();
-    
+
     public CadastroCliente() {
         initComponents();
         setVisible(true);
@@ -105,6 +106,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         previsJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_previous.png"))); // NOI18N
         previsJLabel.setText("Anterior");
         previsJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        previsJLabel.setEnabled(false);
         previsJLabel.setMaximumSize(new java.awt.Dimension(100, 36));
         previsJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
@@ -112,6 +114,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         nextJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_next.png"))); // NOI18N
         nextJLabel.setText("Próximo");
         nextJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        nextJLabel.setEnabled(false);
         nextJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         lastJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -371,7 +374,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
         //Antes eu usava um objeto da dao, errou feio... errou rude
-        try{
+        try {
             crtlPessoa.inserirPessoa(lerCampos(0));
             limparCampos();
             JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
@@ -379,7 +382,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addJLabelMouseClicked
@@ -395,7 +398,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         try {
             pesAtual = listarClientes.getPessoaSelecionada();
-            pesAtual = crtlPessoa.listarPessoas(2,pesAtual.getCpf()).get(0);
+            pesAtual = crtlPessoa.listarPessoas(2, pesAtual.getCpf()).get(0);
             inserirPessoaDoBanco(pesAtual);
         } catch (SQLException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -422,9 +425,8 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_lastJLabelMouseClicked
 
     private void updateJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateJLabelMouseClicked
-         try{
+        try {
             pesAtual = lerCampos(1);
-             
             crtlPessoa.alterarPessoa(pesAtual);
             limparCampos();
             JOptionPane.showMessageDialog(this, "Alterado com sucesso!!");
@@ -432,7 +434,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_updateJLabelMouseClicked
@@ -502,8 +504,8 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel ufjLabel6;
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
-    
-    public  Pessoa lerCampos(int op) throws SQLException{
+
+    public Pessoa lerCampos(int op) throws SQLException, ClassNotFoundException {
         try {
             Pessoa pes = new Pessoa();
             pes.setCpf(cpfjTextField1.getText());
@@ -519,20 +521,16 @@ public class CadastroCliente extends javax.swing.JFrame {
             end.setCidade(cidadejTextField5.getText());
             end.setRua(ruajTextField6.getText());
             end.setEstado(ufjComboBox1.getSelectedItem().toString());
-
             pes.setEndereco(end);
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDate localDate = LocalDate.now();
-            
+
             Conta conta = new Conta();
-            if (op == 0){ //Insert
-                conta.setAbertaEm(localDate.toString());
-                conta.setSituacao(EstadoConta.ATIVO);
-                conta.setFechadaEm(null);
-            }else { //Update ou delete
-                conta = new ControleConta().listarContas(0, pes.getCpf()).get(0);
-            }
+            conta.setAbertaEm(localDate.toString());
+            conta.setSituacao(EstadoConta.ATIVO);
+            conta.setFechadaEm(null);
+            conta.setPessoa(pes);
             conta.setPessoa(pes);
 
             pes.setConta(conta);
@@ -556,40 +554,39 @@ public class CadastroCliente extends javax.swing.JFrame {
         cidadejTextField5.setText("");
         obsjTextArea1.setText("");
     }
-    
-    public void pegaPosicao(int pos) throws SQLException{
+
+    public void pegaPosicao(int pos) throws SQLException {
         List<Pessoa> pesLista = null;
         Pessoa pes = new Pessoa();
-        switch(pos){
+        switch (pos) {
             case 0://PRIMEIRO CLIENTE
-                pesLista = crtlPessoa.listarPessoas(1, "");
+                pesLista = crtlPessoa.listarPessoas(0, null);
                 pesAtual = pesLista.get(pos);
                 break;
             case 1://ULTIMO DA LISTA
-                pesLista = crtlPessoa.listarPessoas(1, "");
-                pesAtual = pesLista.get(pesLista.size()-1);
+                pesLista = crtlPessoa.listarPessoas(0, null);
+                pesAtual = pesLista.get(pesLista.size() - 1);
                 break;
         }
-        
         inserirPessoaDoBanco(pes);
     }
-    
-    public void inserirPessoaDoBanco(Pessoa pes) throws SQLException{
+
+    public void inserirPessoaDoBanco(Pessoa pes) throws SQLException {
         cpfjTextField1.setText(pesAtual.getCpf());
         nomejTextField.setText(pesAtual.getNome());
         rgjTextField2.setText(pesAtual.getRg());
         tel01jTextField3.setText(Integer.toString(pesAtual.getTelefone01()));
         tel02jTextField4.setText(Integer.toString(pesAtual.getTelefone02()));
-        
+
         ruajTextField6.setText(pesAtual.getEndereco().getRua());
         bairrojTextField7.setText(pesAtual.getEndereco().getBairro());
         cidadejTextField5.setText(pesAtual.getEndereco().getCidade());
         obsjTextArea1.setText(pesAtual.getObservacoes());
         ufjComboBox1.setSelectedItem(pesAtual.getEndereco().getEstado());
-        cepjTextField8.setText(Integer.toString(pesAtual.getEndereco().getCep()));        
+        cepjTextField8.setText(Integer.toString(pesAtual.getEndereco().getCep()));
     }
-    
-    public void preencherCombo(){
+
+    public void preencherCombo() {
         ufjComboBox1.addItem(EstadosUF.ES.toString());
         ufjComboBox1.addItem(EstadosUF.MG.toString());
         ufjComboBox1.addItem(EstadosUF.SP.toString());

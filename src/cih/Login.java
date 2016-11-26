@@ -1,5 +1,6 @@
 package cih;
 
+import desabilitado.CadastroEquipamentos;
 import cdp.Usuario;
 import cgt.ControleUsuario;
 import cgt.GenericControl;

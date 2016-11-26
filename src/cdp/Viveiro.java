@@ -33,11 +33,7 @@ public class Viveiro {
     public int getIdViveiro() {
         return idViveiro;
     }
-
-    public void setIdViveiro(int idViveiro) {
-        this.idViveiro = idViveiro;
-    }
-
+    
     public double getAreaDisponivel() {
         return areaDisponivel;
     }

@@ -40,10 +40,6 @@ public class Conta implements Serializable {
         return idConta;
     }
 
-    public void setIdConta(int idConta) {
-        this.idConta = idConta;
-    }
-
     public EstadoConta getSituação() {
         return situação;
     }

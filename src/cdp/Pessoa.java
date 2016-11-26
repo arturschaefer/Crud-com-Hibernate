@@ -58,10 +58,6 @@ public class Pessoa implements Serializable {
         return cod;
     }
 
-    public void setCod(int cod) {
-        this.cod = cod;
-    }
-
     public String getNome() {
         return nome;
     }

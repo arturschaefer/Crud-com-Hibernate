@@ -66,6 +66,7 @@ public class Venda extends javax.swing.JFrame {
         previsJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_previous.png"))); // NOI18N
         previsJLabel2.setText("Anterior");
         previsJLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        previsJLabel2.setEnabled(false);
         previsJLabel2.setMaximumSize(new java.awt.Dimension(100, 36));
         previsJLabel2.setPreferredSize(new java.awt.Dimension(100, 70));
 
@@ -73,6 +74,7 @@ public class Venda extends javax.swing.JFrame {
         nextJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_next.png"))); // NOI18N
         nextJLabel2.setText("Próximo");
         nextJLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        nextJLabel2.setEnabled(false);
         nextJLabel2.setPreferredSize(new java.awt.Dimension(100, 70));
 
         lastJLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
