@@ -132,8 +132,8 @@ public class GenericaDAO {
             return lista;
         }
     }
-    
-    public List procuraPorNome(Class classe, String nome) {
+    //SERVE SÓ QUANDO HÁ UMA COLUNA CHAMADA NOME
+    public List procuraPorNome(Class classe, String nomeColuna, String nomePesquisa) {
 
         List lista = null;
         Session sessao = null;
@@ -143,7 +143,7 @@ public class GenericaDAO {
             sessao.beginTransaction();
 
             Criteria criteria = sessao.createCriteria(classe)
-   .add(Restrictions.like("nome", "%"+nome+"%"));
+   .add(Restrictions.like(nomeColuna, nomePesquisa));
             lista = criteria.list();
 
             sessao.getTransaction().commit();
