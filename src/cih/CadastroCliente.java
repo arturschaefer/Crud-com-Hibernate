@@ -10,6 +10,7 @@ import cdp.Endereco;
 import cdp.EstadoConta;
 import cdp.EstadosUF;
 import cdp.Pessoa;
+import cgt.ControleConta;
 import cgt.ControlePessoa;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -140,6 +141,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         updateJLabel.setText("Alterar");
         updateJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         updateJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
+        updateJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateJLabelMouseClicked(evt);
+            }
+        });
 
         searchJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         searchJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifier.png"))); // NOI18N
@@ -366,7 +372,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
         //Antes eu usava um objeto da dao, errou feio... errou rude
         try{
-            crtlPessoa.inserirPessoa(lerCampos());
+            crtlPessoa.inserirPessoa(lerCampos(0));
             limparCampos();
             JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
         } catch (SQLException ex) {
@@ -386,12 +392,14 @@ public class CadastroCliente extends javax.swing.JFrame {
         ListarCliente listarClientes = new ListarCliente(this, true);
         listarClientes.setVisible(true);
         listarClientes.setAlwaysOnTop(true);
-        
-        pesAtual = listarClientes.getPessoaSelecionada();
-        
+
         try {
+            pesAtual = listarClientes.getPessoaSelecionada();
+            pesAtual = crtlPessoa.listarPessoas(2,pesAtual.getCpf()).get(0);
             inserirPessoaDoBanco(pesAtual);
         } catch (SQLException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         listarClientes.dispose();
@@ -412,6 +420,22 @@ public class CadastroCliente extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }// TODO add your handling code here:
     }//GEN-LAST:event_lastJLabelMouseClicked
+
+    private void updateJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateJLabelMouseClicked
+         try{
+            pesAtual = lerCampos(1);
+             
+            crtlPessoa.alterarPessoa(pesAtual);
+            limparCampos();
+            JOptionPane.showMessageDialog(this, "Alterado com sucesso!!");
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex){
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_updateJLabelMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -479,7 +503,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
     
-    public  Pessoa lerCampos(){
+    public  Pessoa lerCampos(int op) throws SQLException{
         try {
             Pessoa pes = new Pessoa();
             pes.setCpf(cpfjTextField1.getText());
@@ -500,12 +524,15 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDate localDate = LocalDate.now();
-
+            
             Conta conta = new Conta();
-            conta.setAbertaEm(localDate.toString());
-            conta.setSituacao(EstadoConta.ATIVO);
-            conta.setFechadaEm(null);
-
+            if (op == 0){ //Insert
+                conta.setAbertaEm(localDate.toString());
+                conta.setSituacao(EstadoConta.ATIVO);
+                conta.setFechadaEm(null);
+            }else { //Update ou delete
+                conta = new ControleConta().listarContas(0, pes.getCpf()).get(0);
+            }
             conta.setPessoa(pes);
 
             pes.setConta(conta);
