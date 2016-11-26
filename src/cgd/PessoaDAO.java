@@ -8,10 +8,6 @@ package cgd;
 
 import java.util.List;
 import cdp.Pessoa;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 /*
  * Autor:           aschaefer
@@ -36,6 +32,10 @@ public class PessoaDAO extends GenericaDAO{
     }
     
     public List<Pessoa> procuraPessoa(String nome){
-        return  procuraPorNome(Pessoa.class, nome);
+        return  procuraPorNome(Pessoa.class,"nome", nome);
+    }
+    
+    public List<Pessoa> procuraCPF(String nome){
+        return  procuraPorNome(Pessoa.class,"cpf", nome);
     }
 }
