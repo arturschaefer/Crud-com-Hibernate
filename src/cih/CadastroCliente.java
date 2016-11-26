@@ -390,7 +390,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         pesAtual = listarClientes.getPessoaSelecionada();
         
         try {
-            pegaPosicao(0);
+            inserirPessoaDoBanco(pesAtual);
         } catch (SQLException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
