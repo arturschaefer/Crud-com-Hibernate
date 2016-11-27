@@ -2,6 +2,7 @@ package cdp;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,11 +26,11 @@ public class Compra implements Serializable {
     @Column
     private String dataDoEnvio;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "idConta")
     private Conta conta;
     
-    @OneToMany (mappedBy = "compra")    
+    @OneToMany (mappedBy = "compra", cascade = CascadeType.ALL)    
     private List<Itens> itens;
 
     public int getIdCompra() {

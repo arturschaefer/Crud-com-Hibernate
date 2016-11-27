@@ -3,6 +3,7 @@ package cdp;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,10 +29,10 @@ public class Mudas implements Serializable {
     @Column
     private double precoUnidade;
     
-    @OneToMany (mappedBy = "mudas")
+    @OneToMany (mappedBy = "mudas", cascade =  CascadeType.ALL)
     private List<LoteDeMudas> loteDeMudasM;
     
-    @OneToMany (mappedBy = "mudasI")
+    @OneToMany (mappedBy = "mudasI", cascade =  CascadeType.ALL)
     private List<Itens> itens;
 
     public int getIdMudas() {

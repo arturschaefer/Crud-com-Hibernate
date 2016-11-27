@@ -1,6 +1,7 @@
 package cdp;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,7 +28,7 @@ public class Viveiro {
     @Enumerated(EnumType.STRING)
     private Irrigacao tipoDeIrrigacao;
     
-    @OneToMany (mappedBy = "idLote")
+    @OneToMany (mappedBy = "idLote", cascade =  CascadeType.ALL)
     private List<LoteDeMudas> loteDeMudasV;
 
     public int getIdViveiro() {

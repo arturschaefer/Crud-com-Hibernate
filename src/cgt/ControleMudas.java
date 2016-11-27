@@ -10,6 +10,7 @@ import java.util.List;
  * @author Artur
  */
 public class ControleMudas {
+
     MudaDAO mudaDAO;
 
     public ControleMudas() {
@@ -37,7 +38,10 @@ public class ControleMudas {
                 lista = mudaDAO.listarTodos();
                 break;
             case 1:
-                lista = mudaDAO.procuraPorNome(Mudas.class,"descricao", pesq);
+                lista = mudaDAO.procuraPorNome(Mudas.class, "idMudas", pesq);
+                break;
+            case 2:
+                lista = mudaDAO.procuraPorNome(Mudas.class, "nome", pesq);
                 break;
         }
 

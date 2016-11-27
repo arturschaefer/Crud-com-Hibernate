@@ -241,7 +241,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_userTextFieldActionPerformed
 
     private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
-
+        new GenericControl().gerarBanco();
         ControleUsuario control = new ControleUsuario();
         Usuario user = new Usuario();
 

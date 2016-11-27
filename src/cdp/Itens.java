@@ -1,6 +1,7 @@
 package cdp;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,11 +22,11 @@ public class Itens implements Serializable {
     @Column
     private double valor;
     
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "idCompra")
     private Compra compra;
     
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "idMudas")
     private Mudas mudasI;
 
@@ -72,13 +73,4 @@ public class Itens implements Serializable {
     public void setCompra(Compra compra) {
         this.compra = compra;
     }
-
-    public Mudas getMudasI() {
-        return mudasI;
-    }
-
-    public void setMudasI(Mudas mudasI) {
-        this.mudasI = mudasI;
-    }
-
 }

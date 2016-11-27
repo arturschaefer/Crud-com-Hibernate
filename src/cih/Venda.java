@@ -10,12 +10,15 @@ import cdp.Itens;
 import cdp.Mudas;
 import cdp.Pessoa;
 import cgt.ControleCompras;
+import cgt.ControleItens;
 import cgt.ControleMudas;
 import cgt.ControlePessoas;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -87,6 +90,7 @@ public class Venda extends javax.swing.JFrame {
         valorTotaljTextField3 = new javax.swing.JTextField();
         inserirItemMudajButton1 = new javax.swing.JButton();
         excluirItemMudajButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -229,6 +233,14 @@ public class Venda extends javax.swing.JFrame {
         excluirItemMudajButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         excluirItemMudajButton2.setText("Excluir Item");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setText("Cancelar Venda");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout clientejPanel2Layout = new javax.swing.GroupLayout(clientejPanel2);
         clientejPanel2.setLayout(clientejPanel2Layout);
         clientejPanel2Layout.setHorizontalGroup(
@@ -255,10 +267,12 @@ public class Venda extends javax.swing.JFrame {
                                 .addComponent(rgjTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(clientejPanel2Layout.createSequentialGroup()
                         .addComponent(valorTotaljTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(inserirItemMudajButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(excluirItemMudajButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(excluirItemMudajButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -266,7 +280,7 @@ public class Venda extends javax.swing.JFrame {
 
         clientejPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {nfjTextField6, nomejTextField1, tel1jTextField4, valorTotaljTextField3});
 
-        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {excluirItemMudajButton2, inserirItemMudajButton1});
+        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {excluirItemMudajButton2, inserirItemMudajButton1, jButton1});
 
         clientejPanel2Layout.setVerticalGroup(
             clientejPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,11 +303,12 @@ public class Venda extends javax.swing.JFrame {
                 .addGroup(clientejPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valorTotaljTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inserirItemMudajButton1)
-                    .addComponent(excluirItemMudajButton2))
+                    .addComponent(excluirItemMudajButton2)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {excluirItemMudajButton2, inserirItemMudajButton1, valorTotaljTextField3});
+        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {excluirItemMudajButton2, inserirItemMudajButton1, jButton1, valorTotaljTextField3});
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -372,7 +387,7 @@ public class Venda extends javax.swing.JFrame {
 
         try {
             mudaAtual = listaMudas.getMudaSelecionada();
-            mudaAtual = crtlMudas.listarMudas(1, mudaAtual.getDescricao()).get(0);
+            mudaAtual = crtlMudas.listarMudas(2, mudaAtual.getNome()).get(0);
             inserirItem(mudaAtual);
         } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -385,6 +400,7 @@ public class Venda extends javax.swing.JFrame {
     private void addJLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabel2MouseClicked
         try {
             crtlCompra.inserirCompra(lerCampos());
+            //lerCampos();
             limparCampos();
             JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
         } catch (SQLException ex) {
@@ -395,6 +411,10 @@ public class Venda extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addJLabel2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -492,25 +512,34 @@ public class Venda extends javax.swing.JFrame {
         return null;
     }
 
-    public List<Itens> retornaItensTabela(Compra ultimaCompra) throws SQLException {
+    public List<Itens> retornaItensTabela(Compra ultimaCompra) throws SQLException, ClassNotFoundException {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rc = model.getRowCount();
-        Itens itemAtual = new Itens();
-        List<Itens> listaItens = null;
-        Object linha = null;
-        
-        double valor;
-        for (int i = 0; i < rc; i++){
-            itemAtual.setCompra(ultimaCompra);
-            itemAtual.setQuantidade((int) model.getValueAt(i, 3));
-            valor = (double) model.getValueAt(i, 2);
-            mudaAtual = crtlMudas.listarMudas(1, Double.toString(valor)).get(0);
-            itemAtual.setValor(mudaAtual.getPrecoUnidade() * itemAtual.getQuantidade());
-            itemAtual.setMudasI(mudaAtual);
+        if (rc >= 1){
+            ControleItens crtlItens = new ControleItens();
+            List<Itens> listaItens = new ArrayList<>();
+            Itens itemAtual;
+            Mudas muda;
+            for (int i = 0; i < rc; i++){
+                itemAtual = new Itens();
+                
+                /*PROCURAR PELO ID DA MUDA ESTÁ DANDO ERRO*/
+                muda = new Mudas();
+                muda.setIdMudas((int) model.getValueAt(i, 0));
+                muda.setNome((String) model.getValueAt(i, 1));
+                muda = crtlMudas.listarMudas(2,muda.getNome()).get(0);
+                
+                itemAtual.setMudas(muda);
+                itemAtual.setCompra(ultimaCompra);
+                itemAtual.setQuantidade((int) model.getValueAt(i, 3));
+                itemAtual.setValor(itemAtual.getQuantidade() * itemAtual.getValor());
+                
+                listaItens.add(itemAtual);
+            }
             
-            listaItens.add(itemAtual);
+            return listaItens;
         }
-        return listaItens;
+        return null;
     }
 
     private void limparCampos() {
@@ -537,6 +566,7 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JLabel firstJLabel2;
     private javax.swing.JPanel geraljPanel1;
     private javax.swing.JButton inserirItemMudajButton1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lastJLabel2;

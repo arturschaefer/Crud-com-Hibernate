@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Endereco implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue 
     private Integer idEndereco;
     @Column
     private String cidade;
