@@ -10,10 +10,10 @@ import java.util.List;
  *
  * @author Artur
  */
-public class ControleConta {
+public class ControleContas {
     ContaDAO contaDAO;
 
-    public ControleConta() {
+    public ControleContas() {
         contaDAO = new ContaDAO();
     }
 

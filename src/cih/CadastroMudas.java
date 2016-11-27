@@ -3,7 +3,7 @@ package cih;
 import cdp.Mudas;
 import cdp.Viveiro;
 import cgt.ControleMudas;
-import cgt.ControleViveiro;
+import cgt.ControleViveiros;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,7 +24,7 @@ public class CadastroMudas extends javax.swing.JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         try {
-            List<Viveiro> viv = new ControleViveiro().listarViveiro(0, "");
+            List<Viveiro> viv = new ControleViveiros().listarViveiro(0, "");
             for (int i = 0; i < viv.size(); i++){
                 viveiroListajComboBox1.addItem(viv.get(i).getNome());
             }

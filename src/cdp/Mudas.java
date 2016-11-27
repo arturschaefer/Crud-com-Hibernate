@@ -2,6 +2,7 @@ package cdp;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -87,5 +88,9 @@ public class Mudas implements Serializable {
 
     public void setLoteDeMudas(List<LoteDeMudas> loteDeMudas) {
         this.loteDeMudasM = loteDeMudas;
+    }
+
+    public Object[] toArray() {
+        return new Object[] {idMudas, nome, descricao, precoUnidade};
     }
 }

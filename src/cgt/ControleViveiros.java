@@ -21,11 +21,11 @@ import java.util.List;
  * Nome Original:       ControlePessoa
  * Pacote de Criação:   cgd
  */
-public class ControleViveiro {
+public class ControleViveiros {
 
     ViveiroDAO vivDAO;
 
-    public ControleViveiro() {
+    public ControleViveiros() {
         vivDAO = new ViveiroDAO();
     }
 

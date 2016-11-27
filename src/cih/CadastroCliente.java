@@ -10,8 +10,8 @@ import cdp.Endereco;
 import cdp.EstadoConta;
 import cdp.EstadosUF;
 import cdp.Pessoa;
-import cgt.ControleConta;
-import cgt.ControlePessoa;
+import cgt.ControleContas;
+import cgt.ControlePessoas;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,8 +27,8 @@ import javax.swing.JOptionPane;
 public class CadastroCliente extends javax.swing.JFrame {
 
     //PessoaDAO pesDao = new PessoaDAO();
-    ControlePessoa crtlPessoa = new ControlePessoa();
-    ControleConta crtlConta = new ControleConta();
+    ControlePessoas crtlPessoa = new ControlePessoas();
+    ControleContas crtlConta = new ControleContas();
     Pessoa pesAtual = new Pessoa();
 
     public CadastroCliente() {
@@ -283,12 +283,6 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         enderecojPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        ufjComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ufjComboBox1ActionPerformed(evt);
-            }
-        });
-
         cidadejLabel5.setText("Cidade");
 
         ufjLabel6.setText("UF");
@@ -375,7 +369,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
         //Antes eu usava um objeto da dao, errou feio... errou rude
         try {
-            crtlPessoa.inserirPessoa(lerCampos(0));
+            crtlPessoa.inserirPessoa(lerCampos());
             limparCampos();
             JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
         } catch (SQLException ex) {
@@ -386,10 +380,6 @@ public class CadastroCliente extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addJLabelMouseClicked
-
-    private void ufjComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ufjComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ufjComboBox1ActionPerformed
 
     private void searchJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchJLabelMouseClicked
         ListarCliente listarClientes = new ListarCliente(this, true);
@@ -426,7 +416,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void updateJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateJLabelMouseClicked
         try {
-            pesAtual = lerCampos(1);
+            pesAtual = lerCampos();
             crtlPessoa.alterarPessoa(pesAtual);
             limparCampos();
             JOptionPane.showMessageDialog(this, "Alterado com sucesso!!");
@@ -440,30 +430,6 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_updateJLabelMouseClicked
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new CadastroCliente().setVisible(true);
         });
@@ -505,7 +471,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
 
-    public Pessoa lerCampos(int op) throws SQLException, ClassNotFoundException {
+    public Pessoa lerCampos() throws SQLException, ClassNotFoundException {
         try {
             Pessoa pes = new Pessoa();
             pes.setCpf(cpfjTextField1.getText());

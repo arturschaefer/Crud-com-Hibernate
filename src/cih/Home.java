@@ -1,5 +1,8 @@
 package cih;
 import desabilitado.Calculadora;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -133,6 +136,11 @@ public class Home extends javax.swing.JFrame {
         salesJLabel.setText("Vendas");
         salesJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         salesJLabel.setPreferredSize(new java.awt.Dimension(130, 80));
+        salesJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesJLabelMouseClicked(evt);
+            }
+        });
 
         calcJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         calcJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calculator_black.png"))); // NOI18N
@@ -386,6 +394,14 @@ public class Home extends javax.swing.JFrame {
     private void mudasJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mudasJLabelMouseClicked
         new CadastroMudas().setVisible(true);
     }//GEN-LAST:event_mudasJLabelMouseClicked
+
+    private void salesJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesJLabelMouseClicked
+        try {
+            Venda.getInstance().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_salesJLabelMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {

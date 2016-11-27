@@ -1,7 +1,8 @@
 package cih;
 
+import cdp.Mudas;
 import cdp.Pessoa;
-import cgt.ControlePessoas;
+import cgt.ControleMudas;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
@@ -11,24 +12,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ListarCliente extends javax.swing.JDialog {
+public class ListarMudas extends javax.swing.JDialog {
 
-    ControlePessoas ctrlCliente = new ControlePessoas();
-    private Pessoa pessoaSelecionada;
-    List<Pessoa> listaPessoas;
+    ControleMudas ctrlMudas = new ControleMudas();
+    private Mudas mudaSelecionada;
+    List<Mudas> listaMudas;
 
-    public ListarCliente(java.awt.Frame parent, boolean modal) {
+    public ListarMudas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        pessoaSelecionada = new Pessoa();
+        mudaSelecionada = new Mudas();
 
-        ((DefaultTableModel) jTableClientes.getModel()).setRowCount(0);
+        ((DefaultTableModel) jTableMudas.getModel()).setRowCount(0);
         try {
-            listaPessoas = ctrlCliente.listarPessoas(0, clienteJTextField.getText());
+            listaMudas = ctrlMudas.listarMudas(0, "");
             inserirTabela();
         } catch (SQLException ex) {
-            Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListarMudas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -41,47 +42,39 @@ public class ListarCliente extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabelaClientejScrollPane5 = new javax.swing.JScrollPane();
-        jTableClientes = new javax.swing.JTable();
-        clientejLabel22 = new javax.swing.JLabel();
-        clienteJTextField = new javax.swing.JTextField();
-        consultarCliente = new javax.swing.JButton();
+        tabelaMudasjScrollPane5 = new javax.swing.JScrollPane();
+        jTableMudas = new javax.swing.JTable();
+        idMudasjLabel22 = new javax.swing.JLabel();
+        idMudasJTextField = new javax.swing.JTextField();
+        consultarMuda = new javax.swing.JButton();
         cancelajButton = new javax.swing.JButton();
         confirmajButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listar Clientes");
 
-        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMudas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CPF", "Nome", "Telefone", "Cidade"
+                "Id_Muda", "Nome", "Descrição", "Preço_Unitário"
             }
         ));
-        tabelaClientejScrollPane5.setViewportView(jTableClientes);
+        tabelaMudasjScrollPane5.setViewportView(jTableMudas);
 
-        clientejLabel22.setText("Cliente:");
+        idMudasjLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        idMudasjLabel22.setText("Id_Muda");
 
-        consultarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifier.png"))); // NOI18N
-        consultarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        consultarMuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifier.png"))); // NOI18N
+        consultarMuda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                consultarClienteMouseClicked(evt);
-            }
-        });
-        consultarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarClienteActionPerformed(evt);
+                consultarMudaMouseClicked(evt);
             }
         });
 
         cancelajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/8482_16x16.png"))); // NOI18N
-        cancelajButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelajButtonActionPerformed(evt);
-            }
-        });
+        cancelajButton.setEnabled(false);
 
         confirmajButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/6036_32x32.png"))); // NOI18N
         confirmajButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -97,13 +90,13 @@ public class ListarCliente extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabelaClientejScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                    .addComponent(tabelaMudasjScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(clientejLabel22)
+                        .addComponent(idMudasjLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clienteJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(idMudasJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(consultarCliente)
+                        .addComponent(consultarMuda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -112,51 +105,44 @@ public class ListarCliente extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelajButton, confirmajButton4, consultarCliente});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelajButton, confirmajButton4, consultarMuda});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabelaClientejScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabelaMudasjScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(clienteJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(clientejLabel22))
+                        .addComponent(idMudasJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(idMudasjLabel22))
                     .addComponent(cancelajButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(consultarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(consultarMuda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(confirmajButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clienteJTextField, consultarCliente});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {consultarMuda, idMudasJTextField});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void consultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarClienteActionPerformed
-
-    }//GEN-LAST:event_consultarClienteActionPerformed
-
-    private void cancelajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelajButtonActionPerformed
-
-    }//GEN-LAST:event_cancelajButtonActionPerformed
-
-    private void consultarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultarClienteMouseClicked
+    private void consultarMudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultarMudaMouseClicked
         try {
-            listaPessoas = ctrlCliente.listarPessoas(1, clienteJTextField.getText());
+            listaMudas = ctrlMudas.listarMudas(1, idMudasJTextField.getText());
             inserirTabela();
         } catch (SQLException ex) {
-            Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListarMudas.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_consultarClienteMouseClicked
+    }//GEN-LAST:event_consultarMudaMouseClicked
 
     private void confirmajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmajButton4ActionPerformed
-        int linha = jTableClientes.getSelectedRow();
+        int linha = jTableMudas.getSelectedRow();
         if (linha >= 0) {
-            pessoaSelecionada.setNome((String) jTableClientes.getValueAt(linha, 1)); 
-            pessoaSelecionada.setCpf((String) jTableClientes.getValueAt(linha, 0));
+            mudaSelecionada.setIdMudas((int) jTableMudas.getValueAt(linha, 0));
+            mudaSelecionada.setNome((String) jTableMudas.getValueAt(linha, 1));
+            mudaSelecionada.setDescricao((String) jTableMudas.getValueAt(linha, 2));
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha");
@@ -165,23 +151,23 @@ public class ListarCliente extends javax.swing.JDialog {
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            ListarCliente dialog = new ListarCliente(new javax.swing.JFrame(), true);
+            ListarMudas dialog = new ListarMudas(new javax.swing.JFrame(), true);
         });
     }
 
     public final void inserirTabela() {
-        limparTabela(jTableClientes);
-        if (listaPessoas != null) {
-            Pessoa pes;
-            Iterator<Pessoa> it = listaPessoas.iterator();
+        limparTabela(jTableMudas);
+        if (listaMudas != null) {
+            Mudas muda;
+            Iterator<Mudas> it = listaMudas.iterator();
             while (it.hasNext()) {
-                pes = it.next();
-                ((DefaultTableModel) jTableClientes.getModel()).addRow(pes.toArray());
+                muda = it.next();
+                ((DefaultTableModel) jTableMudas.getModel()).addRow(muda.toArray());
             }
         }
     }
-    
-    public final void limparTabela(JTable tabela){
+
+    public final void limparTabela(JTable tabela) {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         int rc = model.getRowCount();
         for (int i = 0; i < rc; i++) {
@@ -190,15 +176,15 @@ public class ListarCliente extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelajButton;
-    private javax.swing.JTextField clienteJTextField;
-    private javax.swing.JLabel clientejLabel22;
     private javax.swing.JButton confirmajButton4;
-    private javax.swing.JButton consultarCliente;
-    private javax.swing.JTable jTableClientes;
-    private javax.swing.JScrollPane tabelaClientejScrollPane5;
+    private javax.swing.JButton consultarMuda;
+    private javax.swing.JTextField idMudasJTextField;
+    private javax.swing.JLabel idMudasjLabel22;
+    private javax.swing.JTable jTableMudas;
+    private javax.swing.JScrollPane tabelaMudasjScrollPane5;
     // End of variables declaration//GEN-END:variables
 
-    public Pessoa getPessoaSelecionada() {
-        return pessoaSelecionada;
+    public Mudas getMudaSelecionada() {
+        return mudaSelecionada;
     }
 }

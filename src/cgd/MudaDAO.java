@@ -15,4 +15,5 @@ public class MudaDAO extends GenericaDAO{
     public List<Mudas> listarTodos() {
         return listar(Mudas.class);
     }
+   
 }

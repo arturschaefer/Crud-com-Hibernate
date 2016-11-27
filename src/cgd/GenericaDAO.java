@@ -132,7 +132,7 @@ public class GenericaDAO {
             return lista;
         }
     }
-    //SERVE SÓ QUANDO HÁ UMA COLUNA CHAMADA NOME
+    
     public List procuraPorNome(Class classe, String nomeColuna, String nomePesquisa) {
 
         List lista = null;

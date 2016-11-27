@@ -65,4 +65,20 @@ public class Itens implements Serializable {
         this.mudasI = mudas;
     }
 
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Mudas getMudasI() {
+        return mudasI;
+    }
+
+    public void setMudasI(Mudas mudasI) {
+        this.mudasI = mudasI;
+    }
+
 }

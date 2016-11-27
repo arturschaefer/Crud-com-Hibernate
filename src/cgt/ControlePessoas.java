@@ -16,14 +16,14 @@ import java.util.List;
  * Professor:       Jean 
  * Instituição:     Instituto Federal de Educação, Ciência e Tecnologia do Espírito Santo - IFES
  *
- * Nome Original:       ControlePessoa
+ * Nome Original:       ControlePessoas
  * Pacote de Criação:   cgd
  */
-public class ControlePessoa {
+public class ControlePessoas {
 
     PessoaDAO pesDAO;
 
-    public ControlePessoa() {
+    public ControlePessoas() {
         pesDAO = new PessoaDAO();
     }
 

@@ -10,11 +10,11 @@ import cih.*;
  * Professor:       Giovany Frossard Teixeira
  * Instituição:     Instituto Federal de Educação, Ciência e Tecnologia do Espírito Santo - IFES
  *
- * Nome Original:       CafeSchaefer
+ * Nome Original:       CafeSchaefer_Principal
  * Pacote de Criação:   cafeschaefer 
  */
 
-public class CafeSchaefer {
+public class CafeSchaefer_Principal {
 
     public static void main(String[] args) {
         /* Set the Nimbus look and feel */

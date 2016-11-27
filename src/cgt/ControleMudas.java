@@ -36,6 +36,9 @@ public class ControleMudas {
             case 0:
                 lista = mudaDAO.listarTodos();
                 break;
+            case 1:
+                lista = mudaDAO.procuraPorNome(Mudas.class,"descricao", pesq);
+                break;
         }
 
         return lista;

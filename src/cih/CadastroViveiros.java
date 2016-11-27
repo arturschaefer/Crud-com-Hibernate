@@ -6,7 +6,7 @@
 package cih;
 
 import cdp.Viveiro;
-import cgt.ControleViveiro;
+import cgt.ControleViveiros;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +20,7 @@ import cih.CadastroCliente;
  */
 public class CadastroViveiros extends javax.swing.JFrame {
 
-    ControleViveiro crtlViv = new ControleViveiro();
+    ControleViveiros crtlViv = new ControleViveiros();
     public CadastroViveiros() {
         initComponents();
         setVisible(true);
