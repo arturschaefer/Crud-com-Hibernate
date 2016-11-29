@@ -6,11 +6,10 @@
 package cgd;
 
 import cdp.Usuario;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /*
  * Autor:           Artur Schaefer <artur.schaefer2 at gmail.com>
@@ -35,13 +34,13 @@ public class UsuarioDAO extends GenericaDAO{
     */
     public Usuario getUsuario(String nomeUsuario, String senha)  {
         Session ses = this.retornaSessao();
+        ses.beginTransaction();
+        Usuario lista = null;
         try {
-            Usuario usuario = (Usuario) ses.getSessionFactory().getCurrentSession()
-                    .createQuery(
-                            "SELECT u from usuarios u where u.userName = :name and u.password = :senha")
-                    .setParameter("name", nomeUsuario)
-                    .setParameter("senha", senha);
-            return usuario;
+            return (Usuario) ses.createCriteria(Usuario.class)
+                    .add(Restrictions.eq("nomeUsuario", nomeUsuario))
+                    .add(Restrictions.eq("senha", senha))
+                    .uniqueResult();
         } catch (NoResultException e) {
             return null;
         }
