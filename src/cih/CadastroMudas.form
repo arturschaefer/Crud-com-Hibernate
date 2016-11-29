@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="menuJPanel" pref="1024" max="32767" attributes="0"/>
+          <Component id="menuJPanel" pref="1042" max="32767" attributes="0"/>
           <Component id="pessoajPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -72,7 +72,7 @@
                   <Component id="searchJLabel" min="-2" pref="115" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="delJLabel" min="-2" pref="115" max="-2" attributes="0"/>
-                  <EmptySpace pref="31" max="32767" attributes="0"/>
+                  <EmptySpace pref="49" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -107,9 +107,6 @@
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder/>
               </Border>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 36]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[100, 70]"/>
@@ -263,35 +260,35 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="nomejLabel" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                              <Component id="descricaojLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="precojLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="tempo1jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="tamanhotel2jLabel4" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="nomejTextField" max="32767" attributes="0"/>
-                              <Component id="descjTextField1" max="32767" attributes="0"/>
-                              <Component id="precojTextField2" max="32767" attributes="0"/>
-                              <Component id="tempojTextField3" max="32767" attributes="0"/>
-                              <Component id="tamanhojTextField4" pref="305" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <Component id="nomejLabel" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Component id="descricaojLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="precojLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="tempo1jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="tamanhotel2jLabel4" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="nomejTextField" max="32767" attributes="0"/>
+                      <Component id="descjTextField1" max="32767" attributes="0"/>
+                      <Component id="precojTextField2" max="32767" attributes="0"/>
+                      <Component id="tempojTextField3" max="32767" attributes="0"/>
+                      <Component id="tamanhojTextField4" pref="305" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <Component id="viveirojLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="viveiroListajComboBox1" min="-2" pref="429" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="cadastrarViveirojButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -320,14 +317,20 @@
                       <Component id="tempojTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tempo1jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tamanhojTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tamanhotel2jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tamanhojTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tamanhotel2jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          <Component id="cadastrarViveirojButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                  <Component id="cadastrarViveirojButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="343" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

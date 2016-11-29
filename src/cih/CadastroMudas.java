@@ -4,6 +4,7 @@ import cdp.Mudas;
 import cdp.Viveiro;
 import cgt.ControleMudas;
 import cgt.ControleViveiros;
+import desabilitado.CadastroEquipamentos;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -76,7 +77,6 @@ public class CadastroMudas extends javax.swing.JFrame {
         firstJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_first.png"))); // NOI18N
         firstJLabel.setText("Primeiro");
         firstJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        firstJLabel.setMaximumSize(new java.awt.Dimension(100, 36));
         firstJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         previsJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -153,7 +153,7 @@ public class CadastroMudas extends javax.swing.JFrame {
                 .addComponent(searchJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(delJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         menuJPanelLayout.setVerticalGroup(
             menuJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,30 +206,30 @@ public class CadastroMudas extends javax.swing.JFrame {
         pessoajPanelLayout.setHorizontalGroup(
             pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pessoajPanelLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
                 .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pessoajPanelLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(descricaojLabel1)
-                            .addComponent(precojLabel2)
-                            .addComponent(tempo1jLabel3)
-                            .addComponent(tamanhotel2jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nomejTextField)
-                            .addComponent(descjTextField1)
-                            .addComponent(precojTextField2)
-                            .addComponent(tempojTextField3)
-                            .addComponent(tamanhojTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                    .addComponent(nomejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descricaojLabel1)
+                    .addComponent(precojLabel2)
+                    .addComponent(tempo1jLabel3)
+                    .addComponent(tamanhotel2jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nomejTextField)
+                    .addComponent(descjTextField1)
+                    .addComponent(precojTextField2)
+                    .addComponent(tempojTextField3)
+                    .addComponent(tamanhojTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pessoajPanelLayout.createSequentialGroup()
                         .addComponent(viveirojLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(viveiroListajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(viveiroListajComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pessoajPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cadastrarViveirojButton1)))
-                .addContainerGap())
+                        .addComponent(cadastrarViveirojButton1)
+                        .addGap(79, 79, 79))))
         );
         pessoajPanelLayout.setVerticalGroup(
             pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,20 +252,23 @@ public class CadastroMudas extends javax.swing.JFrame {
                 .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tempojTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tempo1jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tamanhojTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tamanhotel2jLabel4))
-                .addGap(60, 60, 60)
-                .addComponent(cadastrarViveirojButton1)
-                .addGap(212, 212, 212))
+                .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pessoajPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pessoajPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tamanhojTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tamanhotel2jLabel4)))
+                    .addGroup(pessoajPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(cadastrarViveirojButton1)))
+                .addGap(343, 343, 343))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+            .addComponent(menuJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1042, Short.MAX_VALUE)
             .addComponent(pessoajPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -302,6 +305,18 @@ public class CadastroMudas extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("GTK+".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException |
+                IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CadastroMudas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         java.awt.EventQueue.invokeLater(() -> {
             new CadastroMudas().setVisible(true);
         });
