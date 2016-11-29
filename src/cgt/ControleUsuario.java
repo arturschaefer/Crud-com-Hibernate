@@ -26,8 +26,8 @@ public class ControleUsuario {
     public ControleUsuario() {
     }
     
-    public String envia() {  
-        usuario = userDAO.getUsuario(usuario.getNomeUsuario(), usuario.getSenha());
+    public String envia(String nomeUsuario, String senha) {  
+        usuario = userDAO.getUsuario(nomeUsuario, senha);
         if (usuario == null) {
             return null;
         } else {
