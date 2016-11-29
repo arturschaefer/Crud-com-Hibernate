@@ -132,7 +132,7 @@ public class GenericaDAO {
             return lista;
         }
     }
-    
+
     public List procuraPorNome(Class classe, String nomeColuna, String nomePesquisa) {
 
         List lista = null;
@@ -143,7 +143,7 @@ public class GenericaDAO {
             sessao.beginTransaction();
 
             Criteria criteria = sessao.createCriteria(classe)
-   .add(Restrictions.like(nomeColuna, nomePesquisa));
+                    .add(Restrictions.like(nomeColuna, nomePesquisa));
             lista = criteria.list();
 
             sessao.getTransaction().commit();
@@ -159,6 +159,34 @@ public class GenericaDAO {
                 sessao.close();
             }
             return lista;
+        }
+    }
+
+    public Object get(Class classe, int id) throws SQLException {
+
+        Session sessao = null;
+        Object obj = null;
+        try {
+            sessao = retornaSessao();
+            sessao.beginTransaction();
+
+            // load: retorna exception caso não encontre
+            // get: retorna NULL caso não encontre
+            obj = sessao.get(classe, id);
+
+            sessao.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+            }
+            obj = null;
+            throw new HibernateException(e);
+        } finally {
+            if (sessao != null) {
+                sessao.close();
+            }
+            return obj;
         }
     }
 }
