@@ -6,10 +6,12 @@ import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "muda")
@@ -29,10 +31,12 @@ public class Mudas implements Serializable {
     @Column
     private double precoUnidade;
     
-    @OneToMany (mappedBy = "mudas", cascade =  CascadeType.ALL)
+    @OneToMany (mappedBy = "mudas", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<LoteDeMudas> loteDeMudasM;
     
-    @OneToMany (mappedBy = "mudasI", cascade =  CascadeType.ALL)
+    @OneToMany (mappedBy = "mudasI", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Itens> itens;
 
     public int getIdMudas() {

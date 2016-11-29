@@ -2,16 +2,17 @@ package cdp;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "conta")
@@ -30,10 +31,12 @@ public class Conta implements Serializable {
     @Enumerated(EnumType.STRING)
     private EstadoConta situacao;    
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Pessoa pessoa;    
     
-    @OneToMany(mappedBy = "conta")
+    @OneToMany(mappedBy = "conta", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Compra> compra;
 
     public int getIdConta() {

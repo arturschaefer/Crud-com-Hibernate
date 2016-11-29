@@ -5,12 +5,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "compra")
@@ -26,11 +28,13 @@ public class Compra implements Serializable {
     @Column
     private String dataDoEnvio;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "idConta")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Conta conta;
     
-    @OneToMany (mappedBy = "compra", cascade = CascadeType.ALL)    
+    @OneToMany (mappedBy = "compra",fetch = FetchType.EAGER)    
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Itens> itens;
 
     public int getIdCompra() {

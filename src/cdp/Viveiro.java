@@ -1,19 +1,22 @@
 package cdp;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "viveiro")
-public class Viveiro {
+public class Viveiro implements Serializable {
 
     @Id
     @GeneratedValue
@@ -28,7 +31,8 @@ public class Viveiro {
     @Enumerated(EnumType.STRING)
     private Irrigacao tipoDeIrrigacao;
     
-    @OneToMany (mappedBy = "idLote", cascade =  CascadeType.ALL)
+    @OneToMany (mappedBy = "idLote", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<LoteDeMudas> loteDeMudasV;
 
     public int getIdViveiro() {

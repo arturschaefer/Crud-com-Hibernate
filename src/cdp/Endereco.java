@@ -75,7 +75,5 @@ public class Endereco implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
 
 }

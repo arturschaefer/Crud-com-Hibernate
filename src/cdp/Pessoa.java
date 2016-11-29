@@ -1,7 +1,6 @@
 package cdp;
 
 import java.io.Serializable;
-import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -45,10 +45,12 @@ public class Pessoa implements Serializable {
     @Column
     private String observacoes;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Endereco endereco;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Conta conta;
 
     public Pessoa() {
