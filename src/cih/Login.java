@@ -46,7 +46,7 @@ public class Login extends javax.swing.JFrame {
         usuarioLabel = new javax.swing.JLabel();
         userTextField = new javax.swing.JTextField();
         senhaLabel = new javax.swing.JLabel();
-        senhaPasswordField = new javax.swing.JPasswordField();
+        senhaPasswordField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         logoLabel = new javax.swing.JLabel();
@@ -59,7 +59,6 @@ public class Login extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
         setName("loginFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(500, 360));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -92,13 +91,6 @@ public class Login extends javax.swing.JFrame {
         senhaLabel.setText("Senha");
         senhaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        senhaPasswordField.setText("abc123");
-        senhaPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                senhaPasswordFieldMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -110,8 +102,8 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(senhaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(senhaPasswordField)
-                    .addComponent(userTextField))
+                    .addComponent(userTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(senhaPasswordField))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -123,12 +115,13 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(usuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(senhaPasswordField)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(senhaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(7, 7, 7)
+                        .addComponent(senhaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(senhaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -246,21 +239,21 @@ public class Login extends javax.swing.JFrame {
         Usuario user = new Usuario();
 
         user.setNomeUsuario(userTextField.getText());
-        user.setSenha(Arrays.toString(senhaPasswordField.getPassword()));
-
+        user.setSenha(senhaPasswordField.getText());
+/*
         Home home = new Home(user.getNomeUsuario(), user.getSenha());
         home.setVisible(true);
         this.dispose();
-        /*
-        control.setUsuario(user);
-        if (control.envia().equals("ok")){
+        
+  */      
+        if (control.envia(user.getNomeUsuario(), user.getSenha()) != null){
             Home home = new Home(user.getNomeUsuario(), user.getSenha());
             home.setVisible(true);
             this.dispose();
         }else  {
             System.out.println("ERROUUUUU");
         }
-        */
+        
     }//GEN-LAST:event_entrarButtonActionPerformed
 
     private void savejCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savejCheckBoxActionPerformed
@@ -270,10 +263,6 @@ public class Login extends javax.swing.JFrame {
     private void userTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTextFieldMouseClicked
         userTextField.setText(null);
     }//GEN-LAST:event_userTextFieldMouseClicked
-
-    private void senhaPasswordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senhaPasswordFieldMouseClicked
-        senhaPasswordField.setText("");
-    }//GEN-LAST:event_senhaPasswordFieldMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         LerArquivoSenha.LerSenha(nomeEntrada, senhaEntrada);
@@ -317,7 +306,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton sairButton;
     private javax.swing.JCheckBox savejCheckBox;
     private javax.swing.JLabel senhaLabel;
-    private javax.swing.JPasswordField senhaPasswordField;
+    private javax.swing.JTextField senhaPasswordField;
     private javax.swing.JTextField userTextField;
     private javax.swing.JLabel usuarioLabel;
     // End of variables declaration//GEN-END:variables
