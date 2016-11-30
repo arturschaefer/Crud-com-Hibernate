@@ -30,11 +30,10 @@ public class Compra implements Serializable {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "idConta")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Conta conta;
     
-    @OneToMany (mappedBy = "compra",fetch = FetchType.EAGER)    
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany (mappedBy = "compra",fetch = FetchType.EAGER, cascade = CascadeType.ALL)    
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Itens> itens;
 
     public int getIdCompra() {

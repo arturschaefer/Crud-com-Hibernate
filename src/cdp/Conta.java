@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "conta")
@@ -32,11 +31,9 @@ public class Conta implements Serializable {
     private EstadoConta situacao;    
     
     @OneToOne(fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Pessoa pessoa;    
     
     @OneToMany(mappedBy = "conta", fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private List<Compra> compra;
 
     public int getIdConta() {

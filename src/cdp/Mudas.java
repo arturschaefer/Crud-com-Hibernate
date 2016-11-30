@@ -2,11 +2,9 @@ package cdp;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -31,12 +29,12 @@ public class Mudas implements Serializable {
     @Column
     private double precoUnidade;
     
-    @OneToMany (mappedBy = "mudas", fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany (mappedBy = "mudas", cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<LoteDeMudas> loteDeMudasM;
     
-    @OneToMany (mappedBy = "mudasI", fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany (mappedBy = "mudasI", cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Itens> itens;
 
     public int getIdMudas() {
@@ -96,6 +94,11 @@ public class Mudas implements Serializable {
     }
 
     public Object[] toArray() {
-        return new Object[] {idMudas, nome, descricao, precoUnidade};
+        return new Object[] {this, descricao, precoUnidade, idMudas};
+    }
+    
+    @Override
+    public String toString(){
+        return nome;
     }
 }

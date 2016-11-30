@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -11,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -45,15 +47,17 @@ public class Pessoa implements Serializable {
     @Column
     private String observacoes;
     
-    @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToOne(fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Endereco endereco;
     
-    @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToOne(fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Conta conta;
 
     public Pessoa() {
+        endereco = new Endereco();
+        conta = new Conta();
     }
 
     public int getCod() {
@@ -126,8 +130,12 @@ public class Pessoa implements Serializable {
 
     public Object[] toArray() {
         //return new Object[] {cod, nome, cpf, rg, telefone01, telefone02, observacoes, endereco, conta};   
-        return new Object[] {cpf, nome, telefone01, endereco.getCidade()};
+        return new Object[] {this, nome, telefone01, endereco.getCidade()};
     }
     
+    @Override
+    public String toString(){
+        return cpf;
+    }
     
 }

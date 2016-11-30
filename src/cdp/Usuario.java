@@ -1,9 +1,11 @@
 package cdp;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,6 +29,7 @@ public class Usuario implements Serializable{
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue
     private int id;
 
     @Column(name = "userName", nullable = false, unique = true)
@@ -37,7 +40,7 @@ public class Usuario implements Serializable{
 
     @Column(name = "lastAccess", unique = true)
     @Temporal(TemporalType.DATE)
-    private Date ultimoAcesso;
+    private Calendar ultimoAcesso;
 
     public String getNomeUsuario() {
         return nomeUsuario;
@@ -55,11 +58,19 @@ public class Usuario implements Serializable{
         this.senha = senha;
     }
 
-    public Date getUltimoAcesso() {
+    public Calendar getUltimoAcesso() {
         return ultimoAcesso;
     }
 
-    public void setUltimoAcesso(Date ultimoAcesso) {
+    public void setUltimoAcesso(Calendar ultimoAcesso) {
         this.ultimoAcesso = ultimoAcesso;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

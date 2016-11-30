@@ -11,14 +11,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Artur Schaefer<artur.schaefer2 at gmail.com>
  */
 public class CadastroMudas extends javax.swing.JFrame {
+
     ControleMudas crtlMudas = new ControleMudas();
-    
+
     public CadastroMudas() {
         initComponents();
         setVisible(true);
@@ -26,7 +26,7 @@ public class CadastroMudas extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         try {
             List<Viveiro> viv = new ControleViveiros().listarViveiro(0, "");
-            for (int i = 0; i < viv.size(); i++){
+            for (int i = 0; i < viv.size(); i++) {
                 viveiroListajComboBox1.addItem(viv.get(i).getNome());
             }
         } catch (SQLException ex) {
@@ -68,7 +68,14 @@ public class CadastroMudas extends javax.swing.JFrame {
         cadastrarViveirojButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro Clientes");
+        setTitle("Cadastro Mudas");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         menuJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         menuJPanel.setPreferredSize(new java.awt.Dimension(900, 95));
@@ -192,8 +199,6 @@ public class CadastroMudas extends javax.swing.JFrame {
         viveirojLabel1.setText("Viveiro");
         viveirojLabel1.setEnabled(false);
 
-        viveiroListajComboBox1.setEnabled(false);
-
         cadastrarViveirojButton1.setText("Cadastrar Novo Viveiro?");
         cadastrarViveirojButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +289,7 @@ public class CadastroMudas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrarViveirojButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarViveirojButton1ActionPerformed
-        new CadastroViveiros().setVisible(true);
+        new CadastroViveiros(0);
     }//GEN-LAST:event_cadastrarViveirojButton1ActionPerformed
 
     private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
@@ -298,8 +303,28 @@ public class CadastroMudas extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addJLabelMouseClicked
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        List<Viveiro> viv = null;
+        try {
+            viv = new ControleViveiros().listarViveiro(0, "");
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroMudas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < viv.size(); i++) {
+            viveiroListajComboBox1.addItem(viv.get(i).getNome());
+        }
+
+        if (viveiroListajComboBox1.getItemCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Não há viveiro cadastrado. Cadastre um!");
+            this.setVisible(false);
+            new CadastroViveiros(1).setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -318,10 +343,10 @@ public class CadastroMudas extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroMudas().setVisible(true);
+            new CadastroMudas();
         });
     }
-    
+
     public Mudas lerCampos(int op) throws SQLException, ClassNotFoundException {
         try {
             Mudas muda = new Mudas();
@@ -331,7 +356,7 @@ public class CadastroMudas extends javax.swing.JFrame {
             muda.setPrecoUnidade(Double.parseDouble(precojTextField2.getText()));
             muda.setTamanho(Double.parseDouble(tempojTextField3.getText()));
             muda.setTempoDeCultivo(tempojTextField3.getText());
-            
+
             return muda;
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");

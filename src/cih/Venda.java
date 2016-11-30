@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -50,6 +49,7 @@ public class Venda extends javax.swing.JFrame {
         if ((listaCompras = crtlCompra.listarCompras(0, "")).size() >= 1) {
             preencherVenda(listaCompras.get(0));
         }
+        valorTotaljTextField3.setEditable(false);
     }
 
     public static synchronized Venda getInstance() throws SQLException {
@@ -92,7 +92,7 @@ public class Venda extends javax.swing.JFrame {
         excluirItemMudajButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        itensjTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PDV");
@@ -104,7 +104,6 @@ public class Venda extends javax.swing.JFrame {
         firstJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_first.png"))); // NOI18N
         firstJLabel2.setText("Primeiro");
         firstJLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        firstJLabel2.setMaximumSize(new java.awt.Dimension(100, 36));
         firstJLabel2.setPreferredSize(new java.awt.Dimension(100, 70));
 
         previsJLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -232,6 +231,11 @@ public class Venda extends javax.swing.JFrame {
 
         excluirItemMudajButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         excluirItemMudajButton2.setText("Excluir Item");
+        excluirItemMudajButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirItemMudajButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("Cancelar Venda");
@@ -310,7 +314,7 @@ public class Venda extends javax.swing.JFrame {
 
         clientejPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {excluirItemMudajButton2, inserirItemMudajButton1, jButton1, valorTotaljTextField3});
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        itensjTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -326,7 +330,7 @@ public class Venda extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(itensjTable1);
 
         javax.swing.GroupLayout geraljPanel1Layout = new javax.swing.GroupLayout(geraljPanel1);
         geraljPanel1.setLayout(geraljPanel1Layout);
@@ -348,7 +352,7 @@ public class Venda extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuJPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+            .addComponent(menuJPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
             .addComponent(geraljPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -370,7 +374,6 @@ public class Venda extends javax.swing.JFrame {
 
         try {
             pesAtual = listaClientes.getPessoaSelecionada();
-            pesAtual = crtlPessoa.listarPessoas(2, pesAtual.getCpf()).get(0);
             inserirCompraPorPessoa(pesAtual);
         } catch (SQLException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -387,12 +390,9 @@ public class Venda extends javax.swing.JFrame {
 
         try {
             mudaAtual = listaMudas.getMudaSelecionada();
-            mudaAtual = crtlMudas.listarMudas(2, mudaAtual.getNome()).get(0);
             inserirItem(mudaAtual);
         } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
         }
         listaMudas.dispose();
     }//GEN-LAST:event_inserirItemMudajButton1ActionPerformed
@@ -416,6 +416,31 @@ public class Venda extends javax.swing.JFrame {
         limparCampos();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void excluirItemMudajButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirItemMudajButton2ActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) itensjTable1.getModel();
+        int linha = itensjTable1.getSelectedRow();
+        if (linha >= 0) {
+            try {
+                double tot;
+                if (valorTotaljTextField3.getText().isEmpty() == false) {
+                    tot = Double.parseDouble(valorTotaljTextField3.getText());
+                    tot = tot - (Double)modelo.getValueAt(linha, 4);
+                    valorTotaljTextField3.setText(Double.toString(tot));
+                } else {
+                    tot = 0.0;
+                    valorTotaljTextField3.setText(Double.toString(tot));
+                }
+                modelo.removeRow(linha);
+            } catch (NullPointerException ex) {
+                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Selecione uma linha");
+        }
+
+    }//GEN-LAST:event_excluirItemMudajButton2ActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             try {
@@ -427,7 +452,7 @@ public class Venda extends javax.swing.JFrame {
     }
 
     public void inserirCompraPorPessoa(Pessoa pes) throws SQLException {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) itensjTable1.getModel();
         int rc = model.getRowCount();
         double tot = 0;
         if (rc == 0) {
@@ -476,7 +501,7 @@ public class Venda extends javax.swing.JFrame {
     }
 
     public void inserirItem(Mudas muda) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) itensjTable1.getModel();
         int rc = model.getRowCount();
         Quantidade quantidade = new Quantidade(this, true);
         quantidade.setVisible(true);
@@ -500,9 +525,9 @@ public class Venda extends javax.swing.JFrame {
             compra.setConta(pesAtual.getConta());
             compra.setDataDaCompra(dataComprajTextField1.getText());
             compra.setDataDoEnvio(dataEntregajTextField2.getText());
-            
+
             compra.setItens(retornaItensTabela(compra));
-            
+
             compra.setValorTotal(Double.parseDouble(valorTotaljTextField3.getText()));
 
             return compra;
@@ -513,30 +538,30 @@ public class Venda extends javax.swing.JFrame {
     }
 
     public List<Itens> retornaItensTabela(Compra ultimaCompra) throws SQLException, ClassNotFoundException {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) itensjTable1.getModel();
         int rc = model.getRowCount();
-        if (rc >= 1){
+        if (rc >= 1) {
             ControleItens crtlItens = new ControleItens();
             List<Itens> listaItens = new ArrayList<>();
             Itens itemAtual;
             Mudas muda;
-            for (int i = 0; i < rc; i++){
+            for (int i = 0; i < rc; i++) {
                 itemAtual = new Itens();
-                
+
                 /*PROCURAR PELO ID DA MUDA ESTÁ DANDO ERRO*/
                 muda = new Mudas();
                 muda.setIdMudas((int) model.getValueAt(i, 0));
                 muda.setNome((String) model.getValueAt(i, 1));
-                muda = crtlMudas.listarMudas(2,muda.getNome()).get(0);
-                
+                muda = crtlMudas.listarMudas(2, muda.getNome()).get(0);
+
                 itemAtual.setMudas(muda);
                 itemAtual.setCompra(ultimaCompra);
                 itemAtual.setQuantidade((int) model.getValueAt(i, 3));
                 itemAtual.setValor(itemAtual.getQuantidade() * itemAtual.getValor());
-                
+
                 listaItens.add(itemAtual);
             }
-            
+
             return listaItens;
         }
         return null;
@@ -552,7 +577,7 @@ public class Venda extends javax.swing.JFrame {
         tel1jTextField4.setText("");
         tel2jTextField5.setText("");
         nfjTextField6.setText("");
-        limparTabela(jTable1);
+        limparTabela(itensjTable1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -566,9 +591,9 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JLabel firstJLabel2;
     private javax.swing.JPanel geraljPanel1;
     private javax.swing.JButton inserirItemMudajButton1;
+    private javax.swing.JTable itensjTable1;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lastJLabel2;
     private javax.swing.JPanel menuJPanel2;
     private javax.swing.JLabel nextJLabel2;

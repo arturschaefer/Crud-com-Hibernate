@@ -5,8 +5,6 @@
  */
 package cih;
 
-import cdp.Conta;
-import cdp.Endereco;
 import cdp.EstadoConta;
 import cdp.EstadosUF;
 import cdp.Pessoa;
@@ -37,7 +35,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setFocusableWindowState(true);
-
         preencherCombo();
     }
 
@@ -369,7 +366,9 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void addJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addJLabelMouseClicked
         //Antes eu usava um objeto da dao, errou feio... errou rude
         try {
-            crtlPessoa.inserirPessoa(lerCampos());
+            Pessoa novaPes = new Pessoa();
+            lerCampos(novaPes);
+            crtlPessoa.inserirPessoa(novaPes);
             limparCampos();
             JOptionPane.showMessageDialog(this, "Inserido com sucesso!!");
         } catch (SQLException ex) {
@@ -378,7 +377,9 @@ public class CadastroCliente extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }//GEN-LAST:event_addJLabelMouseClicked
 
     private void searchJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchJLabelMouseClicked
@@ -388,7 +389,6 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         try {
             pesAtual = listarClientes.getPessoaSelecionada();
-            pesAtual = crtlPessoa.listarPessoas(2, pesAtual.getCpf()).get(0);
             inserirPessoaDoBanco(pesAtual);
         } catch (SQLException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -416,7 +416,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void updateJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateJLabelMouseClicked
         try {
-            pesAtual = lerCampos();
+            lerCampos(pesAtual);
             crtlPessoa.alterarPessoa(pesAtual);
             limparCampos();
             JOptionPane.showMessageDialog(this, "Alterado com sucesso!!");
@@ -471,9 +471,8 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
 
-    public Pessoa lerCampos() throws SQLException, ClassNotFoundException {
+    public Pessoa lerCampos(Pessoa pes) throws SQLException, ClassNotFoundException {
         try {
-            Pessoa pes = new Pessoa();
             pes.setCpf(cpfjTextField1.getText());
             pes.setNome(nomejTextField.getText());
             pes.setRg(rgjTextField2.getText());
@@ -481,26 +480,21 @@ public class CadastroCliente extends javax.swing.JFrame {
             pes.setTelefone02(Integer.parseUnsignedInt(tel02jTextField4.getText()));
             pes.setObservacoes(obsjTextArea1.getText());
 
-            Endereco end = new Endereco();
-            end.setBairro(bairrojTextField7.getText());
-            end.setCep(Integer.parseUnsignedInt(cepjTextField8.getText()));
-            end.setCidade(cidadejTextField5.getText());
-            end.setRua(ruajTextField6.getText());
-            end.setEstado(ufjComboBox1.getSelectedItem().toString());
-            pes.setEndereco(end);
+            pes.getEndereco().setBairro(bairrojTextField7.getText());
+            pes.getEndereco().setCep(Integer.parseUnsignedInt(cepjTextField8.getText()));
+            pes.getEndereco().setCidade(cidadejTextField5.getText());
+            pes.getEndereco().setRua(ruajTextField6.getText());
+            pes.getEndereco().setEstado(ufjComboBox1.getSelectedItem().toString());
+            
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             LocalDate localDate = LocalDate.now();
 
-            Conta conta = new Conta();
-            conta.setAbertaEm(localDate.toString());
-            conta.setSituacao(EstadoConta.ATIVO);
-            conta.setFechadaEm(null);
-            conta.setPessoa(pes);
-            conta.setPessoa(pes);
-
-            pes.setConta(conta);
-            return pes;
+            pes.getConta().setAbertaEm(localDate.toString());
+            pes.getConta().setSituacao(EstadoConta.ATIVO);
+            pes.getConta().setFechadaEm(null);
+            pes.getConta().setPessoa(pes);
+            pes.getConta().setPessoa(pes);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
         }

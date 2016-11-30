@@ -162,7 +162,7 @@ public class GenericaDAO {
         }
     }
 
-    public Object get(Class classe, int id) throws SQLException {
+    public Object getIdBanco(Class classe, int id) throws SQLException {
 
         Session sessao = null;
         Object obj = null;
@@ -171,7 +171,7 @@ public class GenericaDAO {
             sessao.beginTransaction();
 
             // load: retorna exception caso não encontre
-            // get: retorna NULL caso não encontre
+            // getIdBanco: retorna NULL caso não encontre
             obj = sessao.get(classe, id);
 
             sessao.getTransaction().commit();

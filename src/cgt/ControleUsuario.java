@@ -7,6 +7,8 @@ package cgt;
 
 import cdp.Usuario;
 import cgd.*;
+import java.sql.SQLException;
+import java.util.List;
 /*
  * Autor:           Artur Schaefer <artur.schaefer2 at gmail.com>
  * Data:            22/11/2016
@@ -26,12 +28,12 @@ public class ControleUsuario {
     public ControleUsuario() {
     }
     
-    public String envia(String nomeUsuario, String senha) {  
+    public Usuario envia(String nomeUsuario, String senha) {  
         usuario = userDAO.getUsuario(nomeUsuario, senha);
         if (usuario == null) {
             return null;
         } else {
-            return "ok";
+            return usuario;
         }
 
     }
@@ -43,4 +45,16 @@ public class ControleUsuario {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
+    public List<Usuario> listaUsuarios(){
+        List<Usuario> lista = null;
+        lista = userDAO.listar(Usuario.class);
+        return lista;
+    }
+    
+    public int alterar(Usuario user) throws ClassNotFoundException, SQLException{
+        userDAO.alterar(user);
+        return user.getId();
+    }
+
 }

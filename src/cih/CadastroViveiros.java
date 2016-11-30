@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cih;
 
 import cdp.Viveiro;
@@ -12,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import cdp.Irrigacao;
-import cih.CadastroCliente;
 
 /**
  *
@@ -21,7 +15,7 @@ import cih.CadastroCliente;
 public class CadastroViveiros extends javax.swing.JFrame {
 
     ControleViveiros crtlViv = new ControleViveiros();
-    public CadastroViveiros() {
+    public CadastroViveiros(int op) {
         initComponents();
         setVisible(true);
         this.pack();
@@ -60,7 +54,7 @@ public class CadastroViveiros extends javax.swing.JFrame {
         irrigacaojComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro Clientes");
+        setTitle("Cadastro Viveiro");
 
         menuJPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         menuJPanel.setPreferredSize(new java.awt.Dimension(900, 95));
@@ -69,7 +63,6 @@ public class CadastroViveiros extends javax.swing.JFrame {
         firstJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_first.png"))); // NOI18N
         firstJLabel.setText("Primeiro");
         firstJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        firstJLabel.setMaximumSize(new java.awt.Dimension(100, 36));
         firstJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         previsJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -258,7 +251,7 @@ public class CadastroViveiros extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroViveiros().setVisible(true);
+            new CadastroViveiros(0);
         });
     }
     

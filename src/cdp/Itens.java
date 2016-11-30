@@ -26,12 +26,10 @@ public class Itens implements Serializable {
     
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "idCompra")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Compra compra;
     
     @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "idMudas")
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinColumn(name = "idMudas")    
     private Mudas mudasI;
 
     public double calculaValor(int qnt, double val) {

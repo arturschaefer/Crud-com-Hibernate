@@ -31,8 +31,8 @@ public class Viveiro implements Serializable {
     @Enumerated(EnumType.STRING)
     private Irrigacao tipoDeIrrigacao;
     
-    @OneToMany (mappedBy = "idLote", fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany (mappedBy = "idLote",cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<LoteDeMudas> loteDeMudasV;
 
     public int getIdViveiro() {

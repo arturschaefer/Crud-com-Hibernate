@@ -149,7 +149,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="logoJPanel" alignment="1" pref="1380" max="32767" attributes="0"/>
+          <Component id="logoJPanel" alignment="1" pref="1384" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
