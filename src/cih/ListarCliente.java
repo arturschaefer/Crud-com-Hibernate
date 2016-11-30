@@ -59,7 +59,15 @@ public class ListarCliente extends javax.swing.JDialog {
             new String [] {
                 "CPF", "Nome", "Telefone", "Cidade"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaClientejScrollPane5.setViewportView(jTableClientes);
 
         clientejLabel22.setText("Cliente:");
@@ -70,13 +78,9 @@ public class ListarCliente extends javax.swing.JDialog {
                 consultarClienteMouseClicked(evt);
             }
         });
-        consultarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarClienteActionPerformed(evt);
-            }
-        });
 
         cancelajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/8482_16x16.png"))); // NOI18N
+        cancelajButton.setEnabled(false);
         cancelajButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelajButtonActionPerformed(evt);
@@ -135,10 +139,6 @@ public class ListarCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void consultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarClienteActionPerformed
-
-    }//GEN-LAST:event_consultarClienteActionPerformed
-
     private void cancelajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelajButtonActionPerformed
 
     }//GEN-LAST:event_cancelajButtonActionPerformed
@@ -155,8 +155,7 @@ public class ListarCliente extends javax.swing.JDialog {
     private void confirmajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmajButton4ActionPerformed
         int linha = jTableClientes.getSelectedRow();
         if (linha >= 0) {
-            pessoaSelecionada.setNome((String) jTableClientes.getValueAt(linha, 1)); 
-            pessoaSelecionada.setCpf((String) jTableClientes.getValueAt(linha, 0));
+            pessoaSelecionada = (Pessoa) jTableClientes.getValueAt(linha, 0);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha");
@@ -174,9 +173,11 @@ public class ListarCliente extends javax.swing.JDialog {
         if (listaPessoas != null) {
             Pessoa pes;
             Iterator<Pessoa> it = listaPessoas.iterator();
+            int i = 0;
             while (it.hasNext()) {
                 pes = it.next();
-                ((DefaultTableModel) jTableClientes.getModel()).addRow(pes.toArray());
+                DefaultTableModel modelo = ((DefaultTableModel) jTableClientes.getModel());
+                modelo.addRow(pes.toArray());
             }
         }
     }

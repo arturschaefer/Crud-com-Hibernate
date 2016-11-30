@@ -1,7 +1,6 @@
 package cih;
 
 import cdp.Mudas;
-import cdp.Pessoa;
 import cgt.ControleMudas;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -58,9 +57,17 @@ public class ListarMudas extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Id_Muda", "Nome", "Descrição", "Preço_Unitário"
+                "Nome", "Descrição", "Preço_Unitário", "Id_Muda"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabelaMudasjScrollPane5.setViewportView(jTableMudas);
 
         idMudasjLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -140,9 +147,7 @@ public class ListarMudas extends javax.swing.JDialog {
     private void confirmajButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmajButton4ActionPerformed
         int linha = jTableMudas.getSelectedRow();
         if (linha >= 0) {
-            mudaSelecionada.setIdMudas((int) jTableMudas.getValueAt(linha, 0));
-            mudaSelecionada.setNome((String) jTableMudas.getValueAt(linha, 1));
-            mudaSelecionada.setDescricao((String) jTableMudas.getValueAt(linha, 2));
+            mudaSelecionada = (Mudas) jTableMudas.getValueAt(linha, 0);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha");
