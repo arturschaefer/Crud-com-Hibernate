@@ -163,6 +163,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         delJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel-icon.png"))); // NOI18N
         delJLabel.setText("Excluir");
         delJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        delJLabel.setEnabled(false);
         delJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         javax.swing.GroupLayout menuJPanelLayout = new javax.swing.GroupLayout(menuJPanel);
