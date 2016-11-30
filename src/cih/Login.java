@@ -5,9 +5,15 @@ import cdp.Usuario;
 import cgt.ControleUsuario;
 import cgt.GenericControl;
 import cgt.LerArquivoSenha;
-import java.util.Arrays;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +30,12 @@ public class Login extends javax.swing.JFrame {
     }
 
     public Login() {
+        if (new ControleUsuario().listaUsuarios().size() == 0){
+            JOptionPane.showMessageDialog(this, "Não há usuários cadastrados!\n"
+                    + "Entre em contato com o administrador do sistema para cadastrar!\n"
+                    + "Lamentamos o incoveniente.");
+            System.exit(0);
+        } 
         this.initComponents();
         this.pack();
         this.setLocationRelativeTo(null);
@@ -46,7 +58,7 @@ public class Login extends javax.swing.JFrame {
         usuarioLabel = new javax.swing.JLabel();
         userTextField = new javax.swing.JTextField();
         senhaLabel = new javax.swing.JLabel();
-        senhaPasswordField = new javax.swing.JTextField();
+        senhaPasswordField = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         logoLabel = new javax.swing.JLabel();
@@ -75,6 +87,14 @@ public class Login extends javax.swing.JFrame {
 
         userTextField.setText("Insira o Nome");
         userTextField.setToolTipText("Artur");
+        userTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                userTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                userTextFieldFocusLost(evt);
+            }
+        });
         userTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 userTextFieldMouseClicked(evt);
@@ -90,6 +110,21 @@ public class Login extends javax.swing.JFrame {
         senhaLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/password.png"))); // NOI18N
         senhaLabel.setText("Senha");
         senhaLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        senhaPasswordField.setText("jPasswordField1");
+        senhaPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                senhaPasswordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                senhaPasswordFieldFocusLost(evt);
+            }
+        });
+        senhaPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senhaPasswordFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -115,13 +150,10 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(usuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(senhaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(senhaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(senhaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(senhaPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -219,7 +251,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(savejCheckBox)
                     .addComponent(entrarButton)
                     .addComponent(sairButton))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,19 +271,33 @@ public class Login extends javax.swing.JFrame {
         Usuario user = new Usuario();
 
         user.setNomeUsuario(userTextField.getText());
-        user.setSenha(senhaPasswordField.getText());
-/*
-        Home home = new Home(user.getNomeUsuario(), user.getSenha());
-        home.setVisible(true);
-        this.dispose();
+        char input[] = senhaPasswordField.getPassword();
+        final int len = input.length;
+        String senha = new String();
+        senha = "";
+        for (int i = 0; i < len; i++) {
+            senha += input[i];
+        }
         
-  */      
-        if (control.envia(user.getNomeUsuario(), user.getSenha()) != null){
-            Home home = new Home(user.getNomeUsuario(), user.getSenha());
-            home.setVisible(true);
+        user.setSenha(senha);
+        user = control.envia(user.getNomeUsuario(), user.getSenha());
+        if (user != null){
+            try {
+                Home home = new Home(user.getNomeUsuario(), user.getSenha());
+                home.setVisible(true);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar cal = Calendar.getInstance();
+                System.out.println(dateFormat.format(cal.getTime()));
+                user.setUltimoAcesso(cal);
+                control.alterar(user);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
         }else  {
-            System.out.println("ERROUUUUU");
+            JOptionPane.showMessageDialog(this, "Falha na autenticação!");
         }
         
     }//GEN-LAST:event_entrarButtonActionPerformed
@@ -266,12 +312,36 @@ public class Login extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         LerArquivoSenha.LerSenha(nomeEntrada, senhaEntrada);
-        System.err.println(nomeEntrada + " " + senhaEntrada);
+        //System.err.println(nomeEntrada + " " + senhaEntrada);
         if (nomeEntrada != null && senhaEntrada != null) {
             userTextField.setText(nomeEntrada);
             senhaPasswordField.setText(senhaEntrada);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void senhaPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaPasswordFieldActionPerformed
+        senhaPasswordField.setText("");
+    }//GEN-LAST:event_senhaPasswordFieldActionPerformed
+
+    private void senhaPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaPasswordFieldFocusGained
+        senhaPasswordField.setText("");
+    }//GEN-LAST:event_senhaPasswordFieldFocusGained
+
+    private void userTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTextFieldFocusGained
+        userTextField.setText("");
+    }//GEN-LAST:event_userTextFieldFocusGained
+
+    private void userTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTextFieldFocusLost
+        if(userTextField.equals("")){
+            userTextField.setText("Insira o Nome");
+        }
+    }//GEN-LAST:event_userTextFieldFocusLost
+
+    private void senhaPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaPasswordFieldFocusLost
+        if (senhaPasswordField.getPassword().equals("")){
+            senhaPasswordField.setText("123456");
+        }
+    }//GEN-LAST:event_senhaPasswordFieldFocusLost
 
     /**
      * @param args the command line arguments
@@ -306,7 +376,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton sairButton;
     private javax.swing.JCheckBox savejCheckBox;
     private javax.swing.JLabel senhaLabel;
-    private javax.swing.JTextField senhaPasswordField;
+    private javax.swing.JPasswordField senhaPasswordField;
     private javax.swing.JTextField userTextField;
     private javax.swing.JLabel usuarioLabel;
     // End of variables declaration//GEN-END:variables
