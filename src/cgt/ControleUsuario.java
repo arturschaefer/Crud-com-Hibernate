@@ -57,4 +57,8 @@ public class ControleUsuario {
         return user.getId();
     }
 
+     public int inserirPessoa(Usuario pes) throws SQLException, ClassNotFoundException {
+        userDAO.inserir(pes);
+        return pes.getId();
+    }
 }

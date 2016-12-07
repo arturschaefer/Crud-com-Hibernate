@@ -79,6 +79,11 @@ public class ListarMudas extends javax.swing.JDialog {
                 consultarMudaMouseClicked(evt);
             }
         });
+        consultarMuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarMudaActionPerformed(evt);
+            }
+        });
 
         cancelajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/8482_16x16.png"))); // NOI18N
         cancelajButton.setEnabled(false);
@@ -153,6 +158,14 @@ public class ListarMudas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione uma linha");
         }
     }//GEN-LAST:event_confirmajButton4ActionPerformed
+
+    private void consultarMudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarMudaActionPerformed
+        try {
+            mudaSelecionada = ctrlMudas.getId(Integer.parseInt(idMudasJTextField.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(ListarMudas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_consultarMudaActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {

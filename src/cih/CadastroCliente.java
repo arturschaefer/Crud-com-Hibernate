@@ -378,15 +378,17 @@ public class CadastroCliente extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            JOptionPane.showMessageDialog(this, "Valor ilegal em algum campo!!");
+        }
     }//GEN-LAST:event_addJLabelMouseClicked
 
     private void searchJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchJLabelMouseClicked
         ListarCliente listarClientes = new ListarCliente(this, true);
         listarClientes.setVisible(true);
-        listarClientes.setAlwaysOnTop(true);
+
 
         try {
             pesAtual = listarClientes.getPessoaSelecionada();
@@ -412,7 +414,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             pegaPosicao(1);//ULTIMO DA LISTA
         } catch (SQLException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }// TODO add your handling code here:
+        }// TODO add your handling code here:// TODO add your handling code here:
     }//GEN-LAST:event_lastJLabelMouseClicked
 
     private void updateJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateJLabelMouseClicked
@@ -427,6 +429,10 @@ public class CadastroCliente extends javax.swing.JFrame {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Valor ilegal em algum campo!!");
         }
     }//GEN-LAST:event_updateJLabelMouseClicked
 
@@ -472,33 +478,30 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel updateJLabel;
     // End of variables declaration//GEN-END:variables
 
-    public Pessoa lerCampos(Pessoa pes) throws SQLException, ClassNotFoundException {
-        try {
-            pes.setCpf(cpfjTextField1.getText());
-            pes.setNome(nomejTextField.getText());
-            pes.setRg(rgjTextField2.getText());
-            pes.setTelefone01(Integer.parseUnsignedInt(tel01jTextField3.getText()));
-            pes.setTelefone02(Integer.parseUnsignedInt(tel02jTextField4.getText()));
-            pes.setObservacoes(obsjTextArea1.getText());
+    public Pessoa lerCampos(Pessoa pes) throws SQLException, ClassNotFoundException,
+            IllegalArgumentException, NullPointerException {
 
-            pes.getEndereco().setBairro(bairrojTextField7.getText());
-            pes.getEndereco().setCep(Integer.parseUnsignedInt(cepjTextField8.getText()));
-            pes.getEndereco().setCidade(cidadejTextField5.getText());
-            pes.getEndereco().setRua(ruajTextField6.getText());
-            pes.getEndereco().setEstado(ufjComboBox1.getSelectedItem().toString());
-            
+        pes.setCpf(cpfjTextField1.getText());
+        pes.setNome(nomejTextField.getText());
+        pes.setRg(rgjTextField2.getText());
+        pes.setTelefone01(Integer.parseUnsignedInt(tel01jTextField3.getText()));
+        pes.setTelefone02(Integer.parseUnsignedInt(tel02jTextField4.getText()));
+        pes.setObservacoes(obsjTextArea1.getText());
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            LocalDate localDate = LocalDate.now();
+        pes.getEndereco().setBairro(bairrojTextField7.getText());
+        pes.getEndereco().setCep(Integer.parseUnsignedInt(cepjTextField8.getText()));
+        pes.getEndereco().setCidade(cidadejTextField5.getText());
+        pes.getEndereco().setRua(ruajTextField6.getText());
+        pes.getEndereco().setEstado(ufjComboBox1.getSelectedItem().toString());
 
-            pes.getConta().setAbertaEm(localDate.toString());
-            pes.getConta().setSituacao(EstadoConta.ATIVO);
-            pes.getConta().setFechadaEm(null);
-            pes.getConta().setPessoa(pes);
-            pes.getConta().setPessoa(pes);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
-        }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();
+
+        pes.getConta().setAbertaEm(localDate.toString());
+        pes.getConta().setSituacao(EstadoConta.ATIVO);
+        pes.getConta().setFechadaEm(null);
+        pes.getConta().setPessoa(pes);
+        pes.getConta().setPessoa(pes);
         return null;
     }
 

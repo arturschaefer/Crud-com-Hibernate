@@ -47,4 +47,8 @@ public class ControleMudas {
 
         return lista;
     }
+    
+    public Mudas getId(int id) throws SQLException{
+        return (Mudas) mudaDAO.getIdBanco(Mudas.class, id);
+    }
 }

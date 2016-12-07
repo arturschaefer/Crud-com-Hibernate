@@ -63,6 +63,7 @@ public class CadastroViveiros extends javax.swing.JFrame {
         firstJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_first.png"))); // NOI18N
         firstJLabel.setText("Primeiro");
         firstJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        firstJLabel.setEnabled(false);
         firstJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         previsJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -84,6 +85,7 @@ public class CadastroViveiros extends javax.swing.JFrame {
         lastJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_last.png"))); // NOI18N
         lastJLabel.setText("Último");
         lastJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lastJLabel.setEnabled(false);
         lastJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         addJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -108,6 +110,7 @@ public class CadastroViveiros extends javax.swing.JFrame {
         searchJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifier.png"))); // NOI18N
         searchJLabel.setText("Pesquisar");
         searchJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        searchJLabel.setEnabled(false);
         searchJLabel.setMaximumSize(new java.awt.Dimension(100, 36));
         searchJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
@@ -227,8 +230,7 @@ public class CadastroViveiros extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(menuJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pessoajPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(pessoajPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE))
         );
 
         pack();
@@ -267,6 +269,8 @@ public class CadastroViveiros extends javax.swing.JFrame {
             return viv;
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
+        } catch (IllegalArgumentException ex){
+            JOptionPane.showMessageDialog(this, "Valor inválido em algum campo!!");
         }
         return null;
     }

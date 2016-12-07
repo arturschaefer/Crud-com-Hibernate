@@ -48,7 +48,7 @@ public class ControlePessoas {
                 lista = pesDAO.listarTodos();
                 break;
             case 1:
-                lista = pesDAO.procuraPessoa(pesq);
+                lista = pesDAO.procuraPessoa("%"+pesq+"%");
                 break;
             case 2:
                 lista = pesDAO.procuraCPF(pesq);

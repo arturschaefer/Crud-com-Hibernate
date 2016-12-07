@@ -90,7 +90,7 @@ public class Venda extends javax.swing.JFrame {
         valorTotaljTextField3 = new javax.swing.JTextField();
         inserirItemMudajButton1 = new javax.swing.JButton();
         excluirItemMudajButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        cancelaVendajButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         itensjTable1 = new javax.swing.JTable();
 
@@ -142,12 +142,15 @@ public class Venda extends javax.swing.JFrame {
         updateJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check-mark (1).png"))); // NOI18N
         updateJLabel2.setText("Alterar");
         updateJLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        updateJLabel2.setEnabled(false);
         updateJLabel2.setPreferredSize(new java.awt.Dimension(100, 70));
 
         searchJLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         searchJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifier.png"))); // NOI18N
         searchJLabel2.setText("Pesquisar");
+        searchJLabel2.setToolTipText("Futuro Relatorio");
         searchJLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        searchJLabel2.setEnabled(false);
         searchJLabel2.setMaximumSize(new java.awt.Dimension(100, 36));
         searchJLabel2.setPreferredSize(new java.awt.Dimension(100, 70));
 
@@ -155,6 +158,7 @@ public class Venda extends javax.swing.JFrame {
         delJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel-icon.png"))); // NOI18N
         delJLabel2.setText("Excluir");
         delJLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        delJLabel2.setEnabled(false);
         delJLabel2.setPreferredSize(new java.awt.Dimension(100, 70));
 
         javax.swing.GroupLayout menuJPanel2Layout = new javax.swing.GroupLayout(menuJPanel2);
@@ -237,11 +241,11 @@ public class Venda extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("Cancelar Venda");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cancelaVendajButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cancelaVendajButton1.setText("Cancelar Venda");
+        cancelaVendajButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cancelaVendajButton1ActionPerformed(evt);
             }
         });
 
@@ -276,7 +280,7 @@ public class Venda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(excluirItemMudajButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(cancelaVendajButton1)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -284,7 +288,7 @@ public class Venda extends javax.swing.JFrame {
 
         clientejPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {nfjTextField6, nomejTextField1, tel1jTextField4, valorTotaljTextField3});
 
-        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {excluirItemMudajButton2, inserirItemMudajButton1, jButton1});
+        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelaVendajButton1, excluirItemMudajButton2, inserirItemMudajButton1});
 
         clientejPanel2Layout.setVerticalGroup(
             clientejPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,11 +312,11 @@ public class Venda extends javax.swing.JFrame {
                     .addComponent(valorTotaljTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inserirItemMudajButton1)
                     .addComponent(excluirItemMudajButton2)
-                    .addComponent(jButton1))
+                    .addComponent(cancelaVendajButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {excluirItemMudajButton2, inserirItemMudajButton1, jButton1, valorTotaljTextField3});
+        clientejPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cancelaVendajButton1, excluirItemMudajButton2, inserirItemMudajButton1, valorTotaljTextField3});
 
         itensjTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -412,9 +416,9 @@ public class Venda extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addJLabel2MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cancelaVendajButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelaVendajButton1ActionPerformed
         limparCampos();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_cancelaVendajButton1ActionPerformed
 
     private void excluirItemMudajButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirItemMudajButton2ActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) itensjTable1.getModel();
@@ -582,6 +586,7 @@ public class Venda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addJLabel2;
+    private javax.swing.JButton cancelaVendajButton1;
     private javax.swing.JPanel clientejPanel2;
     private javax.swing.JTextField cpfjTextField2;
     private javax.swing.JTextField dataComprajTextField1;
@@ -592,7 +597,6 @@ public class Venda extends javax.swing.JFrame {
     private javax.swing.JPanel geraljPanel1;
     private javax.swing.JButton inserirItemMudajButton1;
     private javax.swing.JTable itensjTable1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lastJLabel2;
     private javax.swing.JPanel menuJPanel2;

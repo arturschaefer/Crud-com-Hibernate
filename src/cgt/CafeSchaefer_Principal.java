@@ -1,5 +1,6 @@
 package cgt;
 import cih.*;
+import java.sql.SQLException;
 
 /*
  * Autor:           Artur Schaefer <artur.schaefer2@gmail.com>
@@ -16,7 +17,7 @@ import cih.*;
 
 public class CafeSchaefer_Principal {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

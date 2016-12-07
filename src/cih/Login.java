@@ -29,12 +29,19 @@ public class Login extends javax.swing.JFrame {
         this.senhaEntrada = senhaEntrada;
     }
 
-    public Login() {
+    public Login() throws SQLException, ClassNotFoundException {
         if (new ControleUsuario().listaUsuarios().size() == 0){
-            JOptionPane.showMessageDialog(this, "Não há usuários cadastrados!\n"
+            /*JOptionPane.showMessageDialog(this, "Não há usuários cadastrados!\n"
                     + "Entre em contato com o administrador do sistema para cadastrar!\n"
                     + "Lamentamos o incoveniente.");
-            System.exit(0);
+            System.exit(0);*/
+            JOptionPane.showMessageDialog(this, "Usuário: Admin\n Senha: Admin");
+            ControleUsuario crtlUser = new ControleUsuario();
+            Usuario admin = new Usuario();
+            admin.setNomeUsuario("Admin");
+            admin.setSenha("Admin");
+            
+            crtlUser.inserirPessoa(admin);
         } 
         this.initComponents();
         this.pack();
@@ -217,6 +224,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         savejCheckBox.setText("Lembrar usuário e senha");
+        savejCheckBox.setEnabled(false);
         savejCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 savejCheckBoxActionPerformed(evt);
@@ -287,7 +295,7 @@ public class Login extends javax.swing.JFrame {
                 home.setVisible(true);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Calendar cal = Calendar.getInstance();
-                System.out.println(dateFormat.format(cal.getTime()));
+                
                 user.setUltimoAcesso(cal);
                 control.alterar(user);
             } catch (ClassNotFoundException ex) {
@@ -332,13 +340,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_userTextFieldFocusGained
 
     private void userTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTextFieldFocusLost
-        if(userTextField.equals("")){
+        if(userTextField.getText().length() == 0){
             userTextField.setText("Insira o Nome");
         }
     }//GEN-LAST:event_userTextFieldFocusLost
 
     private void senhaPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_senhaPasswordFieldFocusLost
-        if (senhaPasswordField.getPassword().equals("")){
+        if (senhaPasswordField.getPassword().length == 0){
             senhaPasswordField.setText("123456");
         }
     }//GEN-LAST:event_senhaPasswordFieldFocusLost
@@ -363,7 +371,13 @@ public class Login extends javax.swing.JFrame {
         }
         java.awt.EventQueue.invokeLater(() -> { //java.awt.EventQueue.invokeLater(new Runnable() {
             new GenericControl().gerarBanco();
-            new Login().setVisible(true);
+            try {
+                new Login().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 

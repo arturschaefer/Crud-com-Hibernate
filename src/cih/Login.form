@@ -271,6 +271,7 @@
     <Component class="javax.swing.JCheckBox" name="savejCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Lembrar usu&#xe1;rio e senha"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savejCheckBoxActionPerformed"/>

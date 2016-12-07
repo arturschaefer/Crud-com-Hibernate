@@ -1,7 +1,6 @@
 
 package cgt;
 
-import cdp.Usuario;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -28,7 +27,7 @@ public class LerArquivoSenha {
                 Nome = arq.nextLine();
                 Senha = arq.nextLine();
             }
-            System.err.println(Nome + " " + Senha);
+            //System.err.println(Nome + " " + Senha);
         }
         catch (IOException erro){
             System.err.printf("Erro na abertura do arquivo: %s.\n",erro.getMessage());

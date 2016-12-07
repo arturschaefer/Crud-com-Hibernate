@@ -78,6 +78,11 @@ public class ListarCliente extends javax.swing.JDialog {
                 consultarClienteMouseClicked(evt);
             }
         });
+        consultarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarClienteActionPerformed(evt);
+            }
+        });
 
         cancelajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/8482_16x16.png"))); // NOI18N
         cancelajButton.setEnabled(false);
@@ -145,7 +150,9 @@ public class ListarCliente extends javax.swing.JDialog {
 
     private void consultarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultarClienteMouseClicked
         try {
-            listaPessoas = ctrlCliente.listarPessoas(1, clienteJTextField.getText());
+            listaPessoas = null;
+            String nome = clienteJTextField.getText();
+            listaPessoas = ctrlCliente.listarPessoas(1, nome);
             inserirTabela();
         } catch (SQLException ex) {
             Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,6 +168,17 @@ public class ListarCliente extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione uma linha");
         }
     }//GEN-LAST:event_confirmajButton4ActionPerformed
+
+    private void consultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarClienteActionPerformed
+        try {
+            listaPessoas = ctrlCliente.listarPessoas(1, clienteJTextField.getText());
+            inserirTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(ListarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }//GEN-LAST:event_consultarClienteActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -181,8 +199,8 @@ public class ListarCliente extends javax.swing.JDialog {
             }
         }
     }
-    
-    public final void limparTabela(JTable tabela){
+
+    public final void limparTabela(JTable tabela) {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         int rc = model.getRowCount();
         for (int i = 0; i < rc; i++) {

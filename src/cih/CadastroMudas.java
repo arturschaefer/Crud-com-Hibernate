@@ -1,6 +1,7 @@
 package cih;
 
 import cdp.Mudas;
+import cdp.Pessoa;
 import cdp.Viveiro;
 import cgt.ControleMudas;
 import cgt.ControleViveiros;
@@ -18,20 +19,13 @@ import javax.swing.JOptionPane;
 public class CadastroMudas extends javax.swing.JFrame {
 
     ControleMudas crtlMudas = new ControleMudas();
-
+    Mudas mudaAtual;
+    
     public CadastroMudas() {
         initComponents();
         setVisible(true);
         this.pack();
         this.setLocationRelativeTo(null);
-        try {
-            List<Viveiro> viv = new ControleViveiros().listarViveiro(0, "");
-            for (int i = 0; i < viv.size(); i++) {
-                viveiroListajComboBox1.addItem(viv.get(i).getNome());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastroMudas.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -84,6 +78,7 @@ public class CadastroMudas extends javax.swing.JFrame {
         firstJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_first.png"))); // NOI18N
         firstJLabel.setText("Primeiro");
         firstJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        firstJLabel.setEnabled(false);
         firstJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         previsJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,6 +100,7 @@ public class CadastroMudas extends javax.swing.JFrame {
         lastJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/resultset_last.png"))); // NOI18N
         lastJLabel.setText("Último");
         lastJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lastJLabel.setEnabled(false);
         lastJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
 
         addJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -129,8 +125,14 @@ public class CadastroMudas extends javax.swing.JFrame {
         searchJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/magnifier.png"))); // NOI18N
         searchJLabel.setText("Pesquisar");
         searchJLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        searchJLabel.setEnabled(false);
         searchJLabel.setMaximumSize(new java.awt.Dimension(100, 36));
         searchJLabel.setPreferredSize(new java.awt.Dimension(100, 70));
+        searchJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchJLabelMouseClicked(evt);
+            }
+        });
 
         delJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         delJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel-icon.png"))); // NOI18N
@@ -302,9 +304,9 @@ public class CadastroMudas extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Valor inválido em algum campo!!");
         }
     }//GEN-LAST:event_addJLabelMouseClicked
 
@@ -325,6 +327,20 @@ public class CadastroMudas extends javax.swing.JFrame {
             new CadastroViveiros(1).setVisible(true);
         }
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void searchJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchJLabelMouseClicked
+        ListarMudas listaMudas = new ListarMudas(this, true);
+        listaMudas.setVisible(true);
+        listaMudas.setAlwaysOnTop(true);
+
+        try {
+            mudaAtual = listaMudas.getMudaSelecionada();
+            
+        } catch (NullPointerException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        listaMudas.dispose();
+    }//GEN-LAST:event_searchJLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -360,6 +376,8 @@ public class CadastroMudas extends javax.swing.JFrame {
             return muda;
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Algum campo está vazio!!");
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Valor inválido em algum campo!!");
         }
         return null;
     }
@@ -373,6 +391,13 @@ public class CadastroMudas extends javax.swing.JFrame {
         tempojTextField3.setText("");
     }
 
+    public void insereMudaDoBanco (Mudas muda){
+        nomejTextField.setText(muda.getNome());
+        descjTextField1.setText(muda.getDescricao());
+        precojTextField2.setText(Double.toString(muda.getPrecoUnidade()));
+        tempojTextField3.setText(muda.getTempoDeCultivo());
+        tamanhojTextField4.setText(Double.toString(muda.getTamanho()));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addJLabel;
     private javax.swing.JButton cadastrarViveirojButton1;

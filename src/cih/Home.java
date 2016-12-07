@@ -1,4 +1,5 @@
 package cih;
+
 import desabilitado.Calculadora;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -10,27 +11,28 @@ import javax.swing.JFrame;
  * @author artur
  */
 public class Home extends javax.swing.JFrame {
+
     private String nomeEntrada;
     private String senhaEntrada;
- 
+
     public Home(String nomeEntrada, String senhaEntrada) {
         this.nomeEntrada = nomeEntrada;
         this.senhaEntrada = senhaEntrada;
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
-        exitJButton.setVisible(true);        
+        exitJButton.setVisible(true);
     }
-    
+
     /**
-     * 
+     *
      * Creates new form Home
      */
     public Home() {
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
-        exitJButton.setVisible(true);        
+        exitJButton.setVisible(true);
     }
 
     /**
@@ -242,9 +244,15 @@ public class Home extends javax.swing.JFrame {
         financeiroJMenu.setToolTipText("Vendas, Pendências...");
 
         jMenuItem2.setText("Pagamentos");
+        jMenuItem2.setEnabled(false);
         financeiroJMenu.add(jMenuItem2);
 
         vendasJMenuItem.setText("Vendas");
+        vendasJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vendasJMenuItemActionPerformed(evt);
+            }
+        });
         financeiroJMenu.add(vendasJMenuItem);
 
         barraMenu.add(financeiroJMenu);
@@ -266,6 +274,7 @@ public class Home extends javax.swing.JFrame {
         cadastroJMenu.add(clientsJMenuItem);
 
         employersJMenuItem.setText("Funcionários");
+        employersJMenuItem.setEnabled(false);
         employersJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 employersJMenuItemActionPerformed(evt);
@@ -282,9 +291,11 @@ public class Home extends javax.swing.JFrame {
         cadastroJMenu.add(viveiroJMenuItem);
 
         insumoJMenuItem.setText("Insumo");
+        insumoJMenuItem.setEnabled(false);
         cadastroJMenu.add(insumoJMenuItem);
 
         jMenuItem1.setText("Equipamentos");
+        jMenuItem1.setEnabled(false);
         cadastroJMenu.add(jMenuItem1);
 
         barraMenu.add(cadastroJMenu);
@@ -298,9 +309,11 @@ public class Home extends javax.swing.JFrame {
 
         calendarjCheckBoxMenuItem.setSelected(true);
         calendarjCheckBoxMenuItem.setText("Calendário");
+        calendarjCheckBoxMenuItem.setEnabled(false);
         utilitiesJMenu.add(calendarjCheckBoxMenuItem);
 
         calcjMenuItem.setText("Calculadora");
+        calcjMenuItem.setEnabled(false);
         utilitiesJMenu.add(calcjMenuItem);
 
         barraMenu.add(utilitiesJMenu);
@@ -355,7 +368,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_aboutMenuActionPerformed
 
     private void clientsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientsJMenuItemActionPerformed
-        
+        new CadastroCliente().setAlwaysOnTop(true);
     }//GEN-LAST:event_clientsJMenuItemActionPerformed
 
     private void employersJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employersJMenuItemActionPerformed
@@ -363,21 +376,33 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_employersJMenuItemActionPerformed
 
     private void viveiroJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viveiroJMenuItemActionPerformed
-        // TODO add your handling code here:
+        new CadastroViveiros(1).setVisible(true);
     }//GEN-LAST:event_viveiroJMenuItemActionPerformed
 
     private void exitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitJButtonActionPerformed
         this.dispose();
-        new Login().setVisible(true);
+        try {
+            new Login().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_exitJButtonActionPerformed
 
     private void sairJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairJLabelMouseClicked
         this.dispose();
-        new Login().setVisible(true);
+        try {
+            new Login().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_sairJLabelMouseClicked
 
     private void clientsJLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientsJLabelMousePressed
-        // TODO add your handling code here:
+        new CadastroCliente().setAlwaysOnTop(true);
     }//GEN-LAST:event_clientsJLabelMousePressed
 
     private void clientsJMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientsJMenuItemMouseClicked
@@ -402,6 +427,14 @@ public class Home extends javax.swing.JFrame {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_salesJLabelMouseClicked
+
+    private void vendasJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendasJMenuItemActionPerformed
+        try {
+            Venda.getInstance().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_vendasJMenuItemActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
